@@ -242,52 +242,6 @@ export default function BlogPageClient() {
           )}
         </div>
       </section>
-
-      {/* ════════ NEWSLETTER (Premium design / text visibility fixed) ════════ */}
-      <section className="py-20 md:py-28 bg-[#FBF7F0] overflow-hidden" aria-label="Newsletter signup">
-        <div className="container-wide px-4">
-          <ScrollRevealCard delay={0.1}>
-            <div className="bg-gradient-to-br from-[#1A3A5C] via-[#11243B] to-[#1C1C1E] rounded-[32px] px-8 py-16 md:py-20 text-center max-w-[900px] mx-auto shadow-card-hover relative overflow-hidden border border-white/10">
-              {/* Soft background glow */}
-              <div className="absolute -top-32 -right-32 w-80 h-80 bg-brand-amber/15 rounded-full blur-[90px] pointer-events-none" />
-              <div className="absolute -bottom-32 -left-32 w-80 h-80 bg-brand-blue-light/10 rounded-full blur-[90px] pointer-events-none" />
-
-              <span className="badge bg-brand-amber/20 text-brand-amber border border-brand-amber/10 text-xs font-semibold tracking-widest uppercase mb-4 inline-block shadow-sm">
-                Newsletter
-              </span>
-
-              {/* Fixed text contrast with !text-white */}
-              <h2 className="font-heading text-3xl sm:text-4xl font-bold mb-4 !text-white leading-tight">
-                Stay <span className="text-brand-amber italic font-normal">Inspired</span>
-              </h2>
-              
-              <p className="font-body text-white/75 text-sm sm:text-base mb-8 max-w-md mx-auto leading-relaxed">
-                Subscribe to receive our latest stories of impact and project updates directly in your inbox.
-              </p>
-
-              <form
-                className="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto"
-                onSubmit={(e) => e.preventDefault()}
-                aria-label="Newsletter form"
-              >
-                <input
-                  type="email"
-                  placeholder="Your email address"
-                  required
-                  className="flex-1 px-6 py-3.5 rounded-full bg-white/10 border border-white/20
-                             text-white text-sm placeholder:text-white/40
-                             focus:outline-none focus:border-brand-amber focus:ring-2 focus:ring-brand-amber/20 transition-all duration-300"
-                  aria-label="Email address"
-                  id="blog-newsletter-email"
-                />
-                <button type="submit" className="btn-amber text-xs font-semibold px-8 py-3.5 rounded-full flex-shrink-0 hover:scale-[1.02] active:scale-98 transition-all cursor-pointer" id="blog-newsletter-btn">
-                  Subscribe
-                </button>
-              </form>
-            </div>
-          </ScrollRevealCard>
-        </div>
-      </section>
     </>
   )
 }

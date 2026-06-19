@@ -1,8 +1,10 @@
+
 'use client'
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowRight, Users } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
+import { cn } from '@/lib/utils'
 import { ScrollRevealTypewriter, ScrollRevealWords, ScrollRevealCard } from '@/components/ui/ScrollAnimations'
 
 const cards = [
@@ -15,13 +17,13 @@ const cards = [
   {
     title: 'Maternal Health & Donor',
     desc: 'Providing essential healthcare and support networks for maternal wellness.',
-    img: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80',
+    img: 'https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?w=800&q=80',
     tag: 'Wellness',
   },
   {
     title: 'Food Community Programs',
     desc: 'Nourishing underserved families through community kitchen initiatives.',
-    img: 'https://images.unsplash.com/photo-1593113598332-cd288d649433?w=800&q=80',
+    img: 'https://images.unsplash.com/photo-1578357078586-491adf1aa5ba?w=800&q=80',
     tag: 'Kitchen',
   },
   {
@@ -35,85 +37,106 @@ const cards = [
 
 export default function WhoWeAre() {
   return (
-    <section className="py-20 md:py-28 lg:py-32 bg-[#FBF7F0] overflow-hidden" aria-label="Who We Are">
+    <section className="py-20 md:py-28 lg:py-32 bg-white overflow-hidden" aria-label="Who We Are">
       <div className="container-wide">
         
         {/* Intro text with viewport-triggered entrance animation */}
         <div className="max-w-[720px] mx-auto text-center mb-16 px-4">
           <p className="section-label mb-3">Who We Are</p>
-          <h2 className="section-title mb-6 leading-tight">
-            <ScrollRevealTypewriter text="Building Strong Communities Through " />
-            <span className="text-brand-blue italic font-normal">
-              <ScrollRevealTypewriter text="Meaningful" delay={0.6} />
+          <h2 className="section-title mb-6 leading-tight italic">
+            <ScrollRevealTypewriter text="Building Strong Communities" />
+            <br />
+            <ScrollRevealTypewriter text="through" delay={0.3} />
+            <br />
+            <span className="inline-block whitespace-nowrap">
+              <span className="text-brand-blue italic font-normal">
+                <ScrollRevealTypewriter text="Meaningful" delay={0.6} />
+              </span>
+              <ScrollRevealTypewriter text=" Action" delay={0.9} />
             </span>
-            <ScrollRevealTypewriter text=" Action" delay={0.9} />
           </h2>
           <p className="section-subtitle mx-auto text-base sm:text-lg">
             <ScrollRevealWords text="Since 2006, Dua Trust has been at the forefront of social change, partnering with communities to address education gaps, health disparities, and social inequalities across India and internationally." />
           </p>
         </div>
 
-        {/* Card Grid (4 image cards) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 px-4 items-stretch">
+        {/* Alternating Row Grid (Wix-style layout) */}
+        <div className="space-y-12 md:space-y-16 mt-16 px-4 lg:px-8 max-w-[1100px] mx-auto">
           {cards.map((card, idx) => {
+            const isImageRight = idx % 2 !== 0
             const cardContent = (
               <>
-                {/* Card Image */}
-                <div className="relative aspect-[4/3] w-full overflow-hidden flex-shrink-0 bg-brand-cream border-b border-brand-sand/20">
-                  <Image
-                    src={card.img}
-                    alt={card.title}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                  />
-                  {/* Premium Golden Tag on Upper Right Corner */}
-                  <div className="absolute top-4 right-4 z-20">
-                    <span className="bg-gradient-to-r from-brand-amber to-amber-300 text-brand-charcoal text-[9px] font-bold tracking-widest uppercase px-3 py-1.5 rounded-full shadow-lg border border-brand-amber/20 group-hover:scale-105 transition-transform duration-300">
+                <div>
+                  <div className="mb-5 flex items-center">
+                    <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white/85 border border-brand-sand/60 text-[10px] font-bold tracking-widest text-brand-blue-light uppercase shadow-sm">
+                      <span className="w-1.5 h-1.5 rounded-full bg-brand-amber animate-pulse-dot" />
                       {card.tag}
                     </span>
                   </div>
+                  <h3 className="font-heading text-2xl sm:text-3xl font-bold text-brand-blue mb-4 leading-tight group-hover/card:text-brand-amber-dark transition-colors duration-500">
+                    {card.title}
+                  </h3>
+                  <p className="font-body text-sm sm:text-base text-brand-grey/90 leading-relaxed mb-6">
+                    {card.desc}
+                  </p>
                 </div>
                 
-                {/* Card Content */}
-                <div className="p-6 flex flex-col flex-grow justify-between">
+                {card.href ? (
                   <div>
-                    <h3 className="font-heading text-lg font-bold text-brand-charcoal mb-2.5 group-hover:text-brand-blue transition-colors duration-300">
-                      {card.title}
-                    </h3>
-                    <p className="font-body text-xs text-brand-grey leading-relaxed line-clamp-3">
-                      {card.desc}
-                    </p>
+                    <span className="inline-flex items-center gap-1.5 font-body text-xs sm:text-sm font-semibold text-brand-blue group-hover/card:text-brand-amber-dark transition-colors cursor-pointer">
+                      View Directory
+                      <ArrowRight size={14} className="group-hover/card:translate-x-1 transition-transform duration-300" />
+                    </span>
                   </div>
-
-                  {card.href && (
-                    <div className="flex items-center gap-2 text-xs font-semibold text-brand-blue group-hover:gap-3 transition-all duration-300 pt-3 border-t border-brand-sand/30 mt-4">
-                      <span>View Directory</span>
-                      <ArrowRight size={12} />
-                    </div>
-                  )}
-                </div>
+                ) : null}
               </>
             )
 
-            const className = "flex flex-col bg-white rounded-[32px] overflow-hidden shadow-card group hover:-translate-y-2.5 hover:shadow-card-hover hover:border-brand-amber/30 transition-all duration-300 border border-brand-sand/30 w-full relative text-left cursor-pointer"
-
             return (
-              <ScrollRevealCard
-                key={card.title}
-                delay={idx * 0.1}
-                className="flex"
-              >
-                {card.href ? (
-                  <Link href={card.href} className={className}>
-                    {cardContent}
-                  </Link>
-                ) : (
-                  <div className={className}>
-                    {cardContent}
+              <div key={card.title} className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-16 items-stretch">
+                {/* Image Tile */}
+                <ScrollRevealCard
+                  delay={0.1}
+                  className={cn(
+                    "w-full order-1 flex flex-col h-full",
+                    isImageRight ? "md:order-2" : "md:order-1"
+                  )}
+                >
+                  <div className="relative w-full h-[200px] sm:h-[240px] md:h-full min-h-[200px] rounded-[32px] overflow-hidden group/img shadow-card border border-brand-sand/30 hover:border-brand-amber/30 hover:-translate-y-2 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">
+                    <Image
+                      src={card.img}
+                      alt={card.title}
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover/img:scale-105"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
+                    {/* Modern subtle overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-brand-blue/15 to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity duration-500 pointer-events-none" />
                   </div>
-                )}
-              </ScrollRevealCard>
+                </ScrollRevealCard>
+
+                {/* Text Tile */}
+                <ScrollRevealCard
+                  delay={0.2}
+                  className={cn(
+                    "w-full order-2 flex flex-col h-full",
+                    isImageRight ? "md:order-1" : "md:order-2"
+                  )}
+                >
+                  {card.href ? (
+                    <Link
+                      href={card.href}
+                      className="bg-[#FBF7F0]/90 backdrop-blur-md rounded-[32px] p-6 md:p-8 lg:p-10 shadow-card hover:shadow-card-hover border border-brand-sand/35 hover:border-brand-amber/30 hover:-translate-y-2 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col justify-between w-full h-full min-h-[250px] sm:min-h-[280px] md:min-h-[330px] group/card"
+                    >
+                      {cardContent}
+                    </Link>
+                  ) : (
+                    <div className="bg-[#FBF7F0]/90 backdrop-blur-md rounded-[32px] p-6 md:p-8 lg:p-10 shadow-card hover:shadow-card-hover border border-brand-sand/35 hover:border-brand-amber/30 hover:-translate-y-2 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col justify-between w-full h-full min-h-[250px] sm:min-h-[280px] md:min-h-[330px] group/card">
+                      {cardContent}
+                    </div>
+                  )}
+                </ScrollRevealCard>
+              </div>
             )
           })}
         </div>
@@ -121,4 +144,3 @@ export default function WhoWeAre() {
     </section>
   )
 }
-

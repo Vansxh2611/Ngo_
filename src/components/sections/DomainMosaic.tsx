@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
+import { cn } from '@/lib/utils'
 import { ScrollRevealTypewriter, ScrollRevealWords, ScrollRevealCard } from '@/components/ui/ScrollAnimations'
 
 const cards = [
@@ -12,6 +13,7 @@ const cards = [
     desc: 'Empowering communities through education, health, and local program support.',
     tag: 'Domains',
     img: 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=800&q=80',
+    href: '/about#programs',
   },
   {
     id: 'projects',
@@ -19,13 +21,15 @@ const cards = [
     desc: 'Building clean water systems, schools, and health infrastructure directly with locals.',
     tag: 'Impact',
     img: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&q=80',
+    href: '/projects',
   },
   {
     id: 'training',
     title: 'Training Mothers',
     desc: 'Vocational training and workshops for maternal health.',
     tag: 'Training',
-    img: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500&q=80',
+    img: 'https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?w=800&q=80',
+    href: '/about#programs',
   },
   {
     id: 'programs',
@@ -33,19 +37,20 @@ const cards = [
     desc: 'Targeted support for self-sustaining communities.',
     tag: 'Programs',
     img: 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=500&q=80',
+    href: '/about#programs',
   },
 ]
 
 export default function DomainMosaic() {
   return (
     <section className="py-20 md:py-28 lg:py-32 bg-white overflow-hidden" aria-label="Domains We Serve">
-      <div className="container-wide px-4">
+      <div className="container-wide">
         
         {/* Top: Text & CTA with reveal animation */}
-        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-16">
+        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-16 px-4">
           <div className="max-w-[720px]">
             <p className="section-label mb-3">What We Do</p>
-            <h2 className="section-title mb-6 leading-tight">
+            <h2 className="section-title mb-6 leading-tight italic">
               <ScrollRevealTypewriter text="Domains We Serve and Build" />
             </h2>
             <p className="section-subtitle text-brand-grey text-base sm:text-lg leading-relaxed">
@@ -65,57 +70,79 @@ export default function DomainMosaic() {
           </div>
         </div>
 
-        {/* Bottom: Uniform Equal Width Grid of Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
-          {cards.map((card, idx) => (
-            <ScrollRevealCard 
-              key={card.id}
-              delay={idx * 0.1}
-              className="flex"
-            >
-              <div className="relative h-[280px] md:h-[320px] lg:h-[380px] rounded-[32px] overflow-hidden group shadow-card border border-brand-sand/30 hover:border-brand-amber/30 transition-all duration-300 flex flex-col justify-end w-full">
-                <Image
-                  src={card.img}
-                  alt={card.title}
-                  fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                />
-                
-                {/* Premium Golden Tag on Upper Right Corner */}
-                {card.tag && (
-                  <div className="absolute top-4 right-4 z-20">
-                    <span className="bg-gradient-to-r from-brand-amber to-amber-300 text-brand-charcoal text-[9px] font-bold tracking-widest uppercase px-3 py-1.5 rounded-full shadow-lg border border-brand-amber/20 group-hover:scale-105 transition-transform duration-300">
+        {/* Alternating Row Grid (Wix-style layout) */}
+        <div className="space-y-12 md:space-y-16 mt-16 px-4 lg:px-8 max-w-[1100px] mx-auto">
+          {cards.map((card, idx) => {
+            const isImageRight = idx % 2 !== 0
+            const cardContent = (
+              <>
+                <div>
+                  <div className="mb-5 flex items-center">
+                    <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white/85 border border-brand-sand/60 text-[10px] font-bold tracking-widest text-brand-blue-light uppercase shadow-sm">
+                      <span className="w-1.5 h-1.5 rounded-full bg-brand-amber animate-pulse-dot" />
                       {card.tag}
                     </span>
                   </div>
-                )}
-                
-                {/* Overlay: linear-gradient for 100% white text readability */}
-                <div 
-                  className="absolute inset-0 z-10 transition-opacity duration-300 group-hover:opacity-95"
-                  style={{
-                    background: 'linear-gradient(180deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.8) 100%)'
-                  }}
-                  aria-hidden="true"
-                />
-                
-                {/* Content Overlay */}
-                <div className="absolute bottom-6 left-6 right-6 text-white z-20">
-                  <h3 className="font-heading text-lg sm:text-xl font-bold mb-1.5 group-hover:text-brand-amber transition-colors duration-300 !text-white">
+                  <h3 className="font-heading text-2xl sm:text-3xl font-bold text-brand-blue mb-4 leading-tight group-hover/card:text-brand-amber-dark transition-colors duration-500">
                     {card.title}
                   </h3>
-                  <p className="font-body text-xs text-white/85 leading-relaxed line-clamp-2">
+                  <p className="font-body text-sm sm:text-base text-brand-grey/90 leading-relaxed mb-6">
                     {card.desc}
                   </p>
                 </div>
-              </div>
-            </ScrollRevealCard>
-          ))}
-        </div>
+                
+                <div>
+                  <span className="inline-flex items-center gap-1.5 font-body text-xs sm:text-sm font-semibold text-brand-blue group-hover/card:text-brand-amber-dark transition-colors cursor-pointer">
+                    Learn More
+                    <ArrowRight size={14} className="group-hover/card:translate-x-1 transition-transform duration-300" />
+                  </span>
+                </div>
+              </>
+            )
 
+            return (
+              <div key={card.id} className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-16 items-stretch">
+                {/* Image Tile */}
+                <ScrollRevealCard
+                  delay={0.1}
+                  className={cn(
+                    "w-full order-1 flex flex-col h-full",
+                    isImageRight ? "md:order-2" : "md:order-1"
+                  )}
+                >
+                  <div className="relative w-full h-[200px] sm:h-[240px] md:h-full min-h-[200px] rounded-[32px] overflow-hidden group/img shadow-card border border-brand-sand/30 hover:border-brand-amber/30 hover:-translate-y-2 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">
+                    <Image
+                      src={card.img}
+                      alt={card.title}
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover/img:scale-105"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
+                    {/* Modern subtle overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-brand-blue/15 to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                  </div>
+                </ScrollRevealCard>
+
+                {/* Text Tile */}
+                <ScrollRevealCard
+                  delay={0.2}
+                  className={cn(
+                    "w-full order-2 flex flex-col h-full",
+                    isImageRight ? "md:order-1" : "md:order-2"
+                  )}
+                >
+                  <Link
+                    href={card.href}
+                    className="bg-[#FBF7F0]/90 backdrop-blur-md rounded-[32px] p-6 md:p-8 lg:p-10 shadow-card hover:shadow-card-hover border border-brand-sand/35 hover:border-brand-amber/30 hover:-translate-y-2 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col justify-between w-full h-full min-h-[250px] sm:min-h-[280px] md:min-h-[330px] group/card"
+                  >
+                    {cardContent}
+                  </Link>
+                </ScrollRevealCard>
+              </div>
+            )
+          })}
+        </div>
       </div>
     </section>
   )
 }
-

@@ -8,7 +8,7 @@ import DomainMosaic from '@/components/sections/DomainMosaic'
 import CTASection from '@/components/sections/CTASection'
 import StatCounter from '@/components/ui/StatCounter'
 import BlogCard from '@/components/ui/BlogCard'
-import NewsletterForm from '@/components/ui/NewsletterForm'
+
 import { ScrollRevealTypewriter, ScrollRevealWords, ScrollRevealCard } from '@/components/ui/ScrollAnimations'
 
 const latestPosts = [
@@ -115,26 +115,38 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+      {/* 7. JOIN CTA */}
+      <section className="py-20 md:py-28 lg:py-32 bg-[#FBF7F0] relative overflow-hidden" aria-label="Join our mission">
+        
+        {/* Inline decorative SVG line/paths to match spec exactly */}
+        <div className="absolute inset-0 pointer-events-none opacity-[0.06] flex items-center justify-center" aria-hidden="true">
+          <svg viewBox="0 0 300 150" className="w-[900px] h-[450px] text-brand-blue" fill="none" stroke="currentColor" strokeWidth="1">
+            <path d="M-50,75 C50,25 100,125 150,75 C200,25 250,125 350,75" strokeDasharray="3 3" />
+            <path d="M-50,90 C50,40 100,140 150,90 C200,40 250,140 350,90" />
+            <path d="M-50,60 C50,10 100,110 150,60 C200,10 250,110 350,60" opacity="0.5" />
+          </svg>
+        </div>
 
-      {/* 7. NEWSLETTER */}
-      <section id="newsletter" className="py-20 md:py-28 lg:py-32 bg-[#FBF7F0]" aria-label="Newsletter Subscription">
-        <div className="container-wide px-4">
-          <div className="bg-white rounded-[32px] p-8 md:p-16 max-w-[760px] mx-auto shadow-card hover:shadow-card-hover transition-all duration-300 border border-brand-sand/35">
-            <div className="text-center max-w-lg mx-auto">
-              <p className="section-label mb-3">Stay Connected</p>
-              <h2 className="section-title mb-4 leading-tight">
-                <ScrollRevealTypewriter text="Newsletter Subscription" />
-              </h2>
-              <p className="section-subtitle mx-auto mb-10 text-sm sm:text-base">
-                <ScrollRevealWords text="Get updates on our programs, stories of impact, and opportunities to make a difference — delivered directly to your inbox." />
-              </p>
-
-              <NewsletterForm id="home-newsletter" />
-
-              <p className="mt-4 text-xs text-brand-grey font-body">
-                No spam. Unsubscribe anytime.
-              </p>
-            </div>
+        <div className="container-wide text-center relative z-10">
+          <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl text-brand-charcoal font-bold mb-6 leading-tight">
+            <ScrollRevealTypewriter text="Join Our " />
+            <span className="text-brand-amber italic font-normal">
+              <ScrollRevealTypewriter text="Mission" delay={0.4} />
+            </span>
+          </h2>
+          <p className="font-body text-brand-grey text-sm sm:text-base mb-10 max-w-xl mx-auto leading-relaxed">
+            <ScrollRevealWords text="Your support — whether through donating time, vocational skills, or financial resources — helps us empower more communities to stand strong." />
+          </p>
+          <div className="flex flex-wrap gap-4 justify-center">
+            <Link href="/community" className="btn-ghost border-brand-blue text-brand-blue hover:bg-brand-blue hover:text-white px-8 py-3.5 rounded-full font-medium cursor-pointer" id="home-join-community-btn">
+              Explore Community
+            </Link>
+            <Link href="/contact#volunteer" className="btn-ghost border-brand-blue text-brand-blue hover:bg-brand-blue hover:text-white px-8 py-3.5 cursor-pointer" id="home-join-volunteer-btn">
+              Volunteer
+            </Link>
+            <Link href="/contact#donate" className="btn-amber px-8 py-3.5 rounded-full text-brand-charcoal font-semibold shadow-md cursor-pointer" id="home-join-donate-btn">
+              Donate Now
+            </Link>
           </div>
         </div>
       </section>

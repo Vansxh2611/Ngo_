@@ -32,7 +32,7 @@ const faqs = [
 
 export default function ContactPageClient() {
   const [openFaq, setOpenFaq] = useState<number | null>(null)
-  
+
   // Contact form state
   const [formState, setFormState] = useState({ name: '', email: '', subject: '', message: '' })
   const [submitted, setSubmitted] = useState(false)
@@ -68,9 +68,9 @@ export default function ContactPageClient() {
           <div className="absolute inset-0 bg-[#0F233B]/40 backdrop-blur-[1px]" aria-hidden="true" />
           <div className="absolute inset-0 bg-gradient-to-b from-[#0F233B]/20 via-transparent to-[#FBF7F0]" aria-hidden="true" />
         </div>
-        
+
         <div className="relative container-wide pt-36 pb-28 z-10 text-center px-4">
-          <motion.span 
+          <motion.span
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
@@ -91,57 +91,122 @@ export default function ContactPageClient() {
       </section>
 
       {/* ════════ INFO CARDS (4 Cards Grid, Overlapping the Hero) ════════ */}
-      <section id="donate" className="bg-[#FBF7F0] pb-16 relative z-20" aria-label="Contact info cards">
+      <section id="donate" className="bg-[#FBF7F0] py-16 md:py-24 relative z-20" aria-label="Contact info cards">
         <div id="donor" className="absolute -top-24" />
         <div className="container-wide px-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 -mt-20 relative z-30">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative z-30">
             {[
-              { type: 'info', icon: Phone,  label: 'Phone',    value: '+91 (022) 234-4567',            sub: 'Mon–Sat, 9am–6pm IST' },
-              { type: 'info', icon: Mail,   label: 'Email',    value: 'hello@duacharitabletrust.org',  sub: 'We reply within 24 hours' },
-              { type: 'info', icon: MapPin, label: 'Location', value: '123 Charity Lane, Mumbai 400001', sub: 'Maharashtra, India' },
-              { type: 'social', icon: Share2, label: 'Connect', value: '', sub: 'Follow our journey online' }
+              {
+                type: 'info',
+                icon: Phone,
+                label: 'Phone',
+                value: '+91 (022) 234-4567',
+                href: 'tel:+910222344567',
+                sub: 'Mon–Sat, 9am–6pm IST',
+                glowClass: 'group-hover/card:shadow-[0_20px_50px_rgba(240,169,42,0.06)]',
+                borderHoverClass: 'hover:border-brand-amber/30',
+                iconGlow: 'bg-[#FBF7F0] border-brand-sand/40 group-hover/card:bg-brand-amber/10 group-hover/card:border-brand-amber/30 group-hover/card:text-brand-amber-dark',
+                iconColor: 'text-brand-blue group-hover/card:text-brand-amber-dark'
+              },
+              {
+                type: 'info',
+                icon: Mail,
+                label: 'Email',
+                value: 'hello@duacharitabletrust.org',
+                href: 'mailto:hello@duacharitabletrust.org',
+                sub: 'We reply within 24 hours',
+                glowClass: 'group-hover/card:shadow-[0_20px_50px_rgba(74,127,165,0.08)]',
+                borderHoverClass: 'hover:border-brand-blue-light/30',
+                iconGlow: 'bg-[#FBF7F0] border-brand-sand/40 group-hover/card:bg-brand-blue-light/10 group-hover/card:border-brand-blue-light/30 group-hover/card:text-brand-blue-light',
+                iconColor: 'text-brand-blue-light'
+              },
+              {
+                type: 'info',
+                icon: MapPin,
+                label: 'Location',
+                value: '123 Charity Lane, Mumbai',
+                href: 'https://maps.google.com/?q=123+Charity+Lane,+Mumbai+400001',
+                sub: 'Maharashtra, India',
+                glowClass: 'group-hover/card:shadow-[0_20px_50px_rgba(26,58,92,0.06)]',
+                borderHoverClass: 'hover:border-brand-blue/30',
+                iconGlow: 'bg-[#FBF7F0] border-brand-sand/40 group-hover/card:bg-brand-blue/10 group-hover/card:border-brand-blue/30 group-hover/card:text-brand-blue',
+                iconColor: 'text-brand-blue'
+              },
+              {
+                type: 'social',
+                icon: Share2,
+                label: 'Connect',
+                value: '',
+                href: '#',
+                sub: 'Follow our journey online',
+                glowClass: 'group-hover/card:shadow-[0_20px_50px_rgba(240,169,42,0.08)]',
+                borderHoverClass: 'hover:border-brand-amber/30',
+                iconGlow: 'bg-[#FBF7F0] border-brand-sand/40 group-hover/card:bg-brand-amber/10 group-hover/card:border-brand-amber/30 group-hover/card:text-brand-amber-dark',
+                iconColor: 'text-brand-blue group-hover/card:text-brand-amber-dark'
+              }
             ].map((card, i) => {
               const Icon = card.icon
               return (
-                <ScrollRevealCard 
+                <ScrollRevealCard
                   key={card.label}
-                  delay={i * 0.1}
-                  className="bg-white rounded-[32px] p-8 flex flex-col items-center text-center gap-4 shadow-card hover:shadow-card-hover transition-all duration-300 border border-brand-sand/30 hover:-translate-y-1.5 group"
+                  delay={i * 0.08}
+                  yOffset={0}
+                  className={`bg-white/90 backdrop-blur-xl rounded-[32px] p-7 md:p-8 flex flex-col items-start justify-between text-left gap-5 shadow-card hover:shadow-card-hover border border-brand-sand/25 hover:-translate-y-2.5 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group/card h-full min-h-[300px] relative overflow-hidden ${card.borderHoverClass} ${card.glowClass}`}
                 >
-                  <div className="w-12 h-12 bg-brand-blue/10 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <Icon size={20} className="text-brand-blue" />
+                  {/* Premium top accent sliding gradient line */}
+                  <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-brand-blue via-brand-amber to-brand-blue-light opacity-0 group-hover/card:opacity-100 transition-all duration-500" />
+
+                  {/* Large absolute faint watermark icon in bottom-right - aligned and sized properly */}
+                  <div className="absolute bottom-[-15px] right-[-15px] text-brand-sand/20 pointer-events-none transition-all duration-500 scale-100 group-hover/card:scale-110 group-hover/card:text-brand-amber/15 z-0">
+                    <Icon size={96} strokeWidth={1} />
                   </div>
-                  <p className="font-body text-xs font-semibold uppercase tracking-wider text-brand-grey">{card.label}</p>
-                  
-                  {card.type === 'info' ? (
-                    <p className="font-body font-bold text-brand-charcoal text-sm min-h-[40px] flex items-center justify-center leading-relaxed">{card.value}</p>
-                  ) : (
-                    <div className="flex items-center gap-2.5 min-h-[40px]" aria-label="Social media channels">
-                      {[
-                        { icon: InstagramIcon, href: 'https://instagram.com', label: 'Instagram' },
-                        { icon: FacebookIcon, href: 'https://facebook.com', label: 'Facebook' },
-                        { icon: XIcon, href: 'https://twitter.com', label: 'Twitter' },
-                        { icon: LinkedInIcon, href: 'https://linkedin.com', label: 'LinkedIn' },
-                        { icon: YouTubeIcon, href: 'https://youtube.com', label: 'YouTube' }
-                      ].map((soc, idx) => {
-                        const SocIcon = soc.icon
-                        return (
-                          <a
-                            key={idx}
-                            href={soc.href}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label={soc.label}
-                            className="w-8 h-8 rounded-full bg-brand-cream border border-brand-sand/40 flex items-center justify-center hover:bg-brand-amber hover:border-brand-amber transition-all duration-200 shadow-sm"
-                          >
-                            <SocIcon className="w-3.5 h-3.5 text-brand-charcoal transition-transform" />
-                          </a>
-                        )
-                      })}
+
+                  {/* Top content wrapper - stays above watermark background */}
+                  <div className="flex flex-col items-start w-full relative z-10 flex-1">
+                    {/* Animated Premium Icon Holder */}
+                    <div className={`w-12 h-12 rounded-2xl flex items-center justify-center border transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] mb-5 ${card.iconGlow}`}>
+                      <Icon size={20} className={`${card.iconColor} transition-all duration-500`} />
                     </div>
-                  )}
-                  
-                  <p className="font-body text-xs text-brand-grey">{card.sub}</p>
+
+                    <p className="font-body text-[10px] font-bold uppercase tracking-widest text-brand-grey/50 mb-1.5">{card.label}</p>
+
+                    {card.type === 'info' ? (
+                      <a
+                        href={card.href}
+                        {...(card.label === 'Location' ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                        className="font-body font-semibold text-brand-charcoal text-base sm:text-lg leading-relaxed hover:text-brand-blue transition-colors duration-200 break-all sm:break-normal w-full"
+                      >
+                        {card.value}
+                      </a>
+                    ) : (
+                      <div className="flex flex-wrap gap-2 pt-1 w-full" aria-label="Social media channels">
+                        {[
+                          { icon: InstagramIcon, href: 'https://instagram.com', label: 'Instagram' },
+                          { icon: FacebookIcon, href: 'https://facebook.com', label: 'Facebook' },
+                          { icon: XIcon, href: 'https://twitter.com', label: 'Twitter' },
+                          { icon: LinkedInIcon, href: 'https://linkedin.com', label: 'LinkedIn' },
+                          { icon: YouTubeIcon, href: 'https://youtube.com', label: 'YouTube' }
+                        ].map((soc, idx) => {
+                          const SocIcon = soc.icon
+                          return (
+                            <a
+                              key={idx}
+                              href={soc.href}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              aria-label={soc.label}
+                              className="w-9 h-9 rounded-xl bg-[#FBF7F0] border border-brand-sand/50 flex items-center justify-center hover:bg-brand-blue hover:text-white hover:border-brand-blue hover:-translate-y-1 hover:shadow-md transition-all duration-300 group/soc"
+                            >
+                              <SocIcon className="w-4 h-4 text-brand-grey group-hover/soc:text-white transition-colors duration-300" />
+                            </a>
+                          )
+                        })}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Subtext aligned at the bottom with thin divider line */}
+                  <p className="font-body text-xs text-brand-grey/60 pt-4 border-t border-brand-sand/15 relative z-10 w-full mt-auto">{card.sub}</p>
                 </ScrollRevealCard>
               )
             })}
@@ -153,9 +218,9 @@ export default function ContactPageClient() {
       <section id="join" className="py-20 md:py-28 lg:py-32 bg-white border-t border-brand-sand/30" aria-label="Contact form and map">
         <div className="container-wide">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-stretch px-4">
-            
+
             {/* Map (Left) */}
-            <ScrollRevealCard 
+            <ScrollRevealCard
               className="rounded-[32px] overflow-hidden shadow-card min-h-[400px] lg:h-full relative border border-brand-sand/30 group"
             >
               <iframe
@@ -174,7 +239,7 @@ export default function ContactPageClient() {
               </h2>
 
               {submitted && (
-                <motion.div 
+                <motion.div
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   className="mb-6 p-4 bg-green-50 border border-green-200 rounded-2xl text-green-700 font-body text-sm"
@@ -251,7 +316,7 @@ export default function ContactPageClient() {
 
       {/* ════════ VOLUNTEER (Cream bg, Rebuilt full interactive form) ════════ */}
       <section id="volunteer" className="py-20 md:py-28 lg:py-32 bg-[#FBF7F0] relative overflow-hidden" aria-label="Volunteer Section">
-        
+
         {/* Concentric rotating wave lines background */}
         <div className="absolute inset-0 pointer-events-none opacity-[0.04] flex items-center justify-center" aria-hidden="true">
           <svg viewBox="0 0 200 200" className="w-[600px] h-[600px] text-brand-blue" fill="none" stroke="currentColor" strokeWidth="1">
@@ -263,7 +328,7 @@ export default function ContactPageClient() {
 
         <div className="container-wide relative z-10 px-4">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            
+
             {/* Left Column: Copy & Bullet Points */}
             <div>
               <p className="section-label mb-3">Get Involved</p>
@@ -289,7 +354,7 @@ export default function ContactPageClient() {
             </div>
 
             {/* Right Column: Rebuilt Volunteer Application Form Card */}
-            <ScrollRevealCard 
+            <ScrollRevealCard
               delay={0.1}
               className="bg-white rounded-[32px] p-8 shadow-card border border-brand-sand/30 relative overflow-hidden"
             >
@@ -299,7 +364,7 @@ export default function ContactPageClient() {
               </h3>
 
               {volSubmitted && (
-                <motion.div 
+                <motion.div
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   className="mb-6 p-4 bg-green-50 border border-green-200 rounded-[20px] text-green-700 font-body text-sm"
@@ -311,10 +376,10 @@ export default function ContactPageClient() {
               <form className="space-y-4" onSubmit={handleVolSubmit} aria-label="Volunteer form" id="volunteer-form">
                 <div>
                   <label htmlFor="vol-name" className="block text-xs font-body font-semibold text-brand-charcoal mb-2">Full Name *</label>
-                  <input 
-                    type="text" 
-                    placeholder="Your name" 
-                    required 
+                  <input
+                    type="text"
+                    placeholder="Your name"
+                    required
                     id="vol-name"
                     value={volState.name}
                     onChange={(e) => setVolState({ ...volState, name: e.target.value })}
@@ -326,10 +391,10 @@ export default function ContactPageClient() {
 
                 <div>
                   <label htmlFor="vol-email" className="block text-xs font-body font-semibold text-brand-charcoal mb-2">Email Address *</label>
-                  <input 
-                    type="email" 
-                    placeholder="your@email.com" 
-                    required 
+                  <input
+                    type="email"
+                    placeholder="your@email.com"
+                    required
                     id="vol-email"
                     value={volState.email}
                     onChange={(e) => setVolState({ ...volState, email: e.target.value })}
@@ -341,7 +406,7 @@ export default function ContactPageClient() {
 
                 <div>
                   <label htmlFor="vol-area" className="block text-xs font-body font-semibold text-brand-charcoal mb-2">Area of Interest *</label>
-                  <select 
+                  <select
                     id="vol-area"
                     required
                     value={volState.area}
@@ -361,9 +426,9 @@ export default function ContactPageClient() {
 
                 <div>
                   <label htmlFor="vol-message" className="block text-xs font-body font-semibold text-brand-charcoal mb-2">Availability & Experience *</label>
-                  <textarea 
-                    rows={3} 
-                    placeholder="Tell us about yourself, your skills, and when you are available..." 
+                  <textarea
+                    rows={3}
+                    placeholder="Tell us about yourself, your skills, and when you are available..."
                     required
                     id="vol-message"
                     value={volState.message}
@@ -374,9 +439,9 @@ export default function ContactPageClient() {
                   />
                 </div>
 
-                <button 
-                  type="submit" 
-                  className="btn-primary bg-brand-charcoal text-white hover:bg-black hover:scale-[1.01] active:scale-95 rounded-full w-full justify-center py-3.5 font-semibold shadow-sm transition-all mt-2 cursor-pointer" 
+                <button
+                  type="submit"
+                  className="btn-primary bg-brand-charcoal text-white hover:bg-black hover:scale-[1.01] active:scale-95 rounded-full w-full justify-center py-3.5 font-semibold shadow-sm transition-all mt-2 cursor-pointer"
                   id="vol-submit-btn"
                 >
                   Become a Volunteer
@@ -397,13 +462,13 @@ export default function ContactPageClient() {
               <ScrollRevealTypewriter text="FAQ" />
             </h2>
           </div>
-          
+
           <div className="space-y-4">
             {faqs.map((faq, i) => {
               const isOpen = openFaq === i
               return (
-                <ScrollRevealCard 
-                  key={i} 
+                <ScrollRevealCard
+                  key={i}
                   delay={i * 0.08}
                   yOffset={20}
                   className="bg-[#FBF7F0]/50 rounded-[24px] overflow-hidden border border-brand-sand/40 shadow-sm transition-all duration-300 hover:shadow-md"
@@ -422,9 +487,9 @@ export default function ContactPageClient() {
                       }
                     </div>
                   </button>
-                  
+
                   {/* Smooth height animation */}
-                  <div 
+                  <div
                     className={`grid transition-all duration-300 ease-in-out
                       ${isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}
                   >
@@ -438,50 +503,6 @@ export default function ContactPageClient() {
               )
             })}
           </div>
-        </div>
-      </section>
-
-      {/* ════════ PREMIUM NEWSLETTER CARD ════════ */}
-      <section id="newsletter" className="py-20 md:py-28 lg:py-32 bg-[#FBF7F0] relative overflow-hidden" aria-label="Newsletter signup">
-        <div className="container-wide px-4 relative z-10">
-          <ScrollRevealCard 
-            className="bg-gradient-to-br from-[#1A3A5C] via-[#11243B] to-[#1C1C1E] rounded-[32px] px-8 py-16 md:py-20 text-center max-w-[900px] mx-auto shadow-card-hover relative overflow-hidden border border-white/10"
-            yOffset={40}
-          >
-            {/* Soft background glow elements */}
-            <div className="absolute -top-32 -right-32 w-80 h-80 bg-brand-amber/15 rounded-full blur-[90px] pointer-events-none" />
-            <div className="absolute -bottom-32 -left-32 w-80 h-80 bg-brand-blue-light/10 rounded-full blur-[90px] pointer-events-none" />
-            
-            <span className="badge bg-brand-amber/20 text-brand-amber border border-brand-amber/10 text-xs font-semibold tracking-widest uppercase mb-4 inline-block shadow-sm">
-              Newsletter
-            </span>
-            
-            {/* Added !text-white to completely override global charcoal heading selectors */}
-            <h2 className="font-heading text-3xl sm:text-4xl font-bold mb-4 !text-white leading-tight">
-              <ScrollRevealTypewriter text="Subscribe to our " />
-              <span className="text-brand-amber italic font-normal">
-                <ScrollRevealTypewriter text="newsletter" delay={0.3} />
-              </span>
-            </h2>
-            
-            <p className="font-body text-white/75 text-sm sm:text-base mb-8 max-w-md mx-auto leading-relaxed">
-              <ScrollRevealWords text="Stay connected with our latest updates, stories of impact, and upcoming community initiatives." />
-            </p>
-
-            {/* Form */}
-            <form className="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto" onSubmit={(e) => e.preventDefault()} aria-label="Newsletter form">
-              <input
-                type="email" placeholder="Your email address" required
-                className="flex-1 px-6 py-3.5 rounded-full bg-white/10 border border-white/20
-                           text-white text-sm placeholder:text-white/40
-                           focus:outline-none focus:border-brand-amber focus:ring-2 focus:ring-brand-amber/20 transition-all duration-300"
-                aria-label="Email for newsletter" id="contact-newsletter-email"
-              />
-              <button type="submit" className="btn-amber text-xs font-semibold px-8 py-3.5 rounded-full flex-shrink-0 hover:scale-[1.02] active:scale-98 transition-all cursor-pointer" id="contact-newsletter-btn">
-                Subscribe
-              </button>
-            </form>
-          </ScrollRevealCard>
         </div>
       </section>
     </>

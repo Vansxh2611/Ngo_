@@ -8,6 +8,7 @@ const footerNav = {
   pages: [
     { label: 'Home', href: '/' },
     { label: 'About Us', href: '/about' },
+    { label: 'Projects', href: '/projects' },
     { label: 'Blog', href: '/blog' },
     { label: 'Archive', href: '/archive' },
     { label: 'Community', href: '/community' },
@@ -26,7 +27,6 @@ const footerNav = {
     { label: 'Donate', href: '/contact#donate' },
     { label: 'Join NGO', href: '/contact#join' },
     { label: 'Become a Donor', href: '/contact#donor' },
-    { label: 'Newsletter', href: '/contact#newsletter' },
   ],
 }
 

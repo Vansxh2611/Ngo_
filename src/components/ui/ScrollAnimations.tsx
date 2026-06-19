@@ -15,7 +15,7 @@ export function ScrollRevealTypewriter({
   delay?: number
   once?: boolean
 }) {
-  const letters = Array.from(text)
+  const words = text.split(" ")
 
   const container = {
     hidden: { opacity: 0 },
@@ -50,15 +50,31 @@ export function ScrollRevealTypewriter({
       viewport={{ once, margin: "-40px" }}
       className={className}
     >
-      {letters.map((char, index) => (
-        <motion.span
-          variants={child}
-          key={index}
-          style={{ display: "inline-block", whiteSpace: char === " " ? "pre" : "normal" }}
-        >
-          {char}
-        </motion.span>
-      ))}
+      {words.map((word, wordIndex) => {
+        const letters = Array.from(word)
+        return (
+          <span key={wordIndex} style={{ display: "inline-block", whiteSpace: "nowrap" }}>
+            {letters.map((char, charIndex) => (
+              <motion.span
+                variants={child}
+                key={charIndex}
+                style={{ display: "inline-block" }}
+              >
+                {char}
+              </motion.span>
+            ))}
+            {wordIndex < words.length - 1 && (
+              <motion.span
+                variants={child}
+                key={`space-${wordIndex}`}
+                style={{ display: "inline-block", whiteSpace: "pre" }}
+              >
+                {" "}
+              </motion.span>
+            )}
+          </span>
+        )
+      })}
     </motion.span>
   )
 }
