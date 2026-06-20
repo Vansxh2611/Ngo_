@@ -20,8 +20,8 @@ const navLinks = [
     label: 'Blog',
     href: '/blog',
     subLinks: [
-      { label: 'Blog Feed', href: '/blog' },
-      { label: 'Archive', href: '/archive' },
+      { label: 'Latest Stories', href: '/blog' },
+      { label: 'Achievements', href: '/blog?type=achievement' },
     ],
   },
   { label: 'Contact Us', href: '/contact' },
@@ -140,7 +140,7 @@ export default function Navbar() {
             Volunteer
           </Link>
           <Link
-            href="/contact#donate"
+            href="/projects"
             className="btn-amber text-xs py-2 px-4 font-semibold shadow-sm"
             id="nav-donate-btn"
           >
@@ -244,7 +244,7 @@ export default function Navbar() {
                 Volunteer
               </Link>
               <Link
-                href="/contact#donate"
+                href="/projects"
                 onClick={() => setMenuOpen(false)}
                 className="btn-amber justify-center text-xs py-2 px-4 text-brand-charcoal"
                 id="mobile-donate-btn"

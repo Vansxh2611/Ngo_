@@ -182,7 +182,7 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
                 
                 <h3 className="font-heading !text-white font-bold text-lg mb-2 relative z-10">Support Our Work</h3>
                 <p className="font-body text-white/80 text-xs mb-5 relative z-10">Your contribution directly funds maternal healthcare, education, and kitchen programs.</p>
-                <Link href="/contact#donate" className="btn-amber w-full justify-center text-xs font-semibold py-3 rounded-full relative z-10 cursor-pointer shadow-md hover:scale-102 transition-transform" id="article-donate-btn">
+                <Link href="/projects" className="btn-amber w-full justify-center text-xs font-semibold py-3 rounded-full relative z-10 cursor-pointer shadow-md hover:scale-102 transition-transform" id="article-donate-btn">
                   Donate Now
                 </Link>
               </div>

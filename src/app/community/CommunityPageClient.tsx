@@ -1,4 +1,4 @@
-  'use client'
+'use client'
 
 import { useState, useMemo } from 'react'
 import Image from 'next/image'
@@ -95,19 +95,32 @@ export default function CommunityPageClient() {
         <div className="container-wide">
           {/* ════════ FILTER BAR ════════ */}
           <div className="bg-white rounded-[24px] p-5 mb-10 flex flex-wrap items-center gap-4 border border-brand-sand/35 shadow-card relative z-30" aria-label="Filters">
-            <div className="relative flex-1 min-w-[200px]">
-              <Search size={14} className="absolute left-4 top-1/2 -translate-y-1/2 text-brand-grey" aria-hidden="true" />
+            <div className="relative flex-1 min-w-[200px] group">
               <input
                 type="search"
                 placeholder="Search members…"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="w-full pl-10 pr-4 py-2.5 rounded-full border border-brand-sand/80 bg-[#FBF7F0]/40 font-body text-xs sm:text-sm
-                           text-brand-charcoal placeholder:text-brand-grey/40
-                           focus:outline-none focus:border-brand-blue-light focus:bg-white focus:ring-4 focus:ring-brand-blue/5 transition-all duration-300"
+                className="w-full pl-10 pr-10 py-2.5 rounded-full border border-brand-sand/80 bg-[#FBF7F0]/45 font-body text-xs sm:text-sm
+                           text-brand-charcoal placeholder:text-brand-grey/50
+                           focus:outline-none focus-visible:outline-none focus:border-brand-blue-light focus:bg-white focus:ring-4 focus:ring-brand-blue/10 transition-all duration-300 shadow-sm"
                 aria-label="Search community members"
                 id="community-search"
               />
+              <Search
+                size={14}
+                className="absolute left-4 top-1/2 -translate-y-1/2 text-brand-grey pointer-events-none z-10 transition-colors duration-300 group-focus-within:text-brand-blue"
+                aria-hidden="true"
+              />
+              {search && (
+                <button
+                  onClick={() => setSearch('')}
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-brand-sand/50 hover:bg-brand-sand text-brand-grey hover:text-brand-charcoal flex items-center justify-center transition-all duration-200 cursor-pointer z-10"
+                  aria-label="Clear search"
+                >
+                  <span className="text-[8px] leading-none">✕</span>
+                </button>
+              )}
             </div>
 
             {/* Domain Filter Dropdown */}
@@ -227,17 +240,118 @@ export default function CommunityPageClient() {
             </div>
           </div>
 
-          <p className="font-body text-sm text-brand-grey mb-6">
-            Showing <span className="font-semibold text-brand-blue">{filtered.length}</span> members
-          </p>
+          {/* PAGE BACKGROUND GLOW */}
+          <div
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 w-[600px] h-[400px] pointer-events-none z-0"
+            style={{
+              background: 'radial-gradient(ellipse, rgba(232,165,61,0.06) 0%, transparent 70%)'
+            }}
+          />
+
+          {/* SECTION HEADER */}
+          <div className="relative text-center mb-16 z-10">
+            {/* EYEBROW */}
+            <div className="inline-flex items-center justify-center gap-3 mb-4">
+              <div
+                className="h-px w-12"
+                style={{
+                  background: 'linear-gradient(90deg, transparent, #E8A53D)'
+                }}
+              />
+              <span
+                className="font-body"
+                style={{
+                  fontSize: '11px',
+                  letterSpacing: '3px',
+                  textTransform: 'uppercase',
+                  fontWeight: '700',
+                  color: '#E8A53D'
+                }}
+              >
+                Our Community
+              </span>
+              <div
+                className="h-px w-12"
+                style={{
+                  background: 'linear-gradient(90deg, #E8A53D, transparent)'
+                }}
+              />
+            </div>
+
+            {/* MAIN HEADING */}
+            <h2
+              className="text-[#0A1A3A] font-bold tracking-tight mb-4 font-heading"
+              style={{ fontSize: 'clamp(28px, 4vw, 42px)', lineHeight: '1.15' }}
+            >
+              The Faces Behind
+              <span
+                style={{
+                  display: 'block',
+                  background: 'linear-gradient(135deg, #C8860D, #E8A53D, #F4C06A)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text'
+                }}
+              >
+                Every Act of Kindness
+              </span>
+            </h2>
+
+            {/* SUBTITLE */}
+            <p
+              className="max-w-lg mx-auto leading-relaxed font-body"
+              style={{
+                fontSize: '15px',
+                color: 'rgba(10,26,58,0.55)'
+              }}
+            >
+              Meet the extraordinary people who make our mission possible — one act of generosity at a time.
+            </p>
+
+            {/* GOLD ORNAMENT */}
+            <div className="flex items-center justify-center gap-3 mt-6">
+              <div className="h-px w-16" style={{ background: 'rgba(232,165,61,0.3)' }} />
+              <span style={{ color: '#E8A53D', fontSize: '14px' }}>✦</span>
+              <div className="h-px w-16" style={{ background: 'rgba(232,165,61,0.3)' }} />
+            </div>
+          </div>
+
+          {/* MEMBER COUNT PILL */}
+          <div className="flex justify-center mb-10 relative z-10">
+            <div
+              className="inline-flex items-center gap-2 px-5 py-2 rounded-full font-body"
+              style={{
+                background: 'rgba(10,26,58,0.04)',
+                border: '1px solid rgba(10,26,58,0.08)'
+              }}
+            >
+              <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span
+                style={{
+                  fontSize: '13px',
+                  color: 'rgba(10,26,58,0.6)',
+                  fontWeight: '500'
+                }}
+              >
+                Showing {filtered.length} active members
+              </span>
+            </div>
+          </div>
 
           {/* ════════ CARDS GRID ════════ */}
           {filtered.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 relative z-10">
               {filtered.map((m, idx) => (
-                <ScrollRevealCard key={m.name} delay={idx * 0.05} yOffset={25} className="flex">
+                <div
+                  key={m.name}
+                  className="animate-fade-in-up flex"
+                  style={{
+                    animationDelay: `${idx * 80}ms`,
+                    animationFillMode: 'both'
+                  }}
+                >
                   <CommunityCard {...m} className="w-full" />
-                </ScrollRevealCard>
+                </div>
               ))}
             </div>
           ) : (

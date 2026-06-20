@@ -59,7 +59,7 @@ export default function CTASection() {
               Our Mission
             </Link>
             <Link 
-              href="/contact#donate" 
+              href="/projects" 
               className="btn-amber px-6 py-3 bg-brand-amber text-brand-charcoal hover:bg-brand-amber-dark rounded-full font-semibold transition-all" 
               id="cta-donate-btn"
             >

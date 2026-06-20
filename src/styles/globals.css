@@ -15,6 +15,27 @@
   }
 }
 
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(32px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes pulseSoft {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
 @keyframes pulseDot {
 
   0%,
@@ -56,6 +77,9 @@
 
   /* Animations */
   --animate-fade-up: fadeUp 0.6s ease-out both;
+  --animate-fade-in-up: fadeInUp 0.6s cubic-bezier(0.23, 1, 0.32, 1) both;
+  --animate-shimmer: shimmer 2.5s infinite;
+  --animate-pulse-soft: pulseSoft 3s ease-in-out infinite;
   --animate-pulse-dot: pulseDot 2s ease-in-out infinite;
 }
 
@@ -110,7 +134,13 @@ h6 {
 *:focus-visible {
   outline: 2px solid #F0A92A;
   outline-offset: 2px;
-  border-radius: 4px;
+}
+
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+.rounded-full:focus-visible {
+  outline: none;
 }
 
 /* ─── Layout Utilities ───────────────────────────────────── */

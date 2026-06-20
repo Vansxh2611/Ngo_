@@ -64,12 +64,12 @@ const milestones = [
 ]
 
 const team = [
-  { name: 'Sheikh Abdullah Dua', role: 'Founder & Chairman',    img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&q=80' },
-  { name: 'Dr. Fatima Rashid',   role: 'Executive Director',    img: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300&q=80' },
-  { name: 'Ahmed Khan',          role: 'Program Director',      img: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&q=80' },
-  { name: 'Zara Siddiqui',       role: 'Head of Community',     img: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&q=80' },
-  { name: 'Omar Farooq',         role: 'Head of Healthcare',    img: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&q=80' },
-  { name: 'Nadia Hussain',       role: 'Head of Education',     img: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&q=80' },
+  { name: 'Sheikh Abdullah Dua', role: 'Founder & Chairman', img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&q=80' },
+  { name: 'Dr. Fatima Rashid', role: 'Executive Director', img: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300&q=80' },
+  { name: 'Ahmed Khan', role: 'Program Director', img: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&q=80' },
+  { name: 'Zara Siddiqui', role: 'Head of Community', img: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&q=80' },
+  { name: 'Omar Farooq', role: 'Head of Healthcare', img: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&q=80' },
+  { name: 'Nadia Hussain', role: 'Head of Education', img: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&q=80' },
 ]
 
 const partners = ['NGO Alliance', 'Global Health Fund', 'Education First', 'UNICEF Partner', 'WHO Affiliate', 'UN SDG Partner']
@@ -88,11 +88,11 @@ export default function AboutPage() {
           <div className="absolute inset-0 bg-[#0F233B]/45 backdrop-blur-[1px]" aria-hidden="true" />
           <div className="absolute inset-0 bg-gradient-to-b from-[#0F233B]/20 via-transparent to-[#FBF7F0]" aria-hidden="true" />
         </div>
-        
+
         {/* Editorial ambient light glows */}
         <div className="absolute top-[-20%] right-[-10%] w-[400px] h-[400px] bg-brand-amber/15 rounded-full blur-[90px] pointer-events-none" />
         <div className="absolute bottom-[-30%] left-[-10%] w-[400px] h-[400px] bg-brand-blue-light/10 rounded-full blur-[90px] pointer-events-none" />
-        
+
         {/* Mesh grid pattern */}
         <div className="absolute inset-0 pointer-events-none opacity-[0.03]" aria-hidden="true">
           <div className="w-full h-full bg-[linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)] bg-[size:4rem_4rem]" />
@@ -118,7 +118,7 @@ export default function AboutPage() {
       <section id="programs" className="py-20 md:py-28 lg:py-32 bg-white overflow-hidden" aria-label="Our story">
         <div className="container-wide">
           <div className="grid lg:grid-cols-[5fr_8fr] gap-16 items-center">
-            
+
             {/* Story Text */}
             <div>
               <p className="section-label mb-3">Our Journey</p>
@@ -143,19 +143,19 @@ export default function AboutPage() {
               <div className="relative h-[320px] lg:h-[450px] bg-[#FBF7F0] rounded-[32px] border border-brand-sand/65 flex items-center justify-center overflow-hidden group hover:border-brand-amber/35 transition-colors duration-300">
                 {/* Ambient radial gradient */}
                 <div className="absolute inset-0 bg-radial-gradient from-brand-amber/10 to-transparent pointer-events-none" />
-                
+
                 {/* Inline Editorial SVG representing Organic Growth and Connection */}
                 <svg viewBox="0 0 200 200" className="w-[85%] h-[85%] text-brand-blue" fill="none" stroke="currentColor" strokeWidth="1.5">
                   {/* Intersecting wavy orbital paths */}
                   <path d="M20,100 Q60,20 100,100 T180,100" strokeDasharray="3 3" opacity="0.4" />
                   <path d="M20,100 Q60,180 100,100 T180,100" strokeDasharray="1 2" opacity="0.4" strokeWidth="1" />
-                  
+
                   {/* Spiral flower of life / growth structure */}
                   <circle cx="100" cy="100" r="10" className="fill-brand-amber/20 stroke-brand-amber" strokeWidth="1" />
                   <circle cx="100" cy="100" r="30" opacity="0.8" />
                   <circle cx="100" cy="100" r="50" strokeDasharray="5 5" opacity="0.6" />
                   <circle cx="100" cy="100" r="70" opacity="0.4" />
-                  
+
                   {/* Floating nodes representing community milestones */}
                   <circle cx="60" cy="60" r="4" className="fill-brand-blue" />
                   <circle cx="140" cy="60" r="5" className="fill-brand-amber" />
@@ -190,7 +190,7 @@ export default function AboutPage() {
               <ScrollRevealTypewriter text="Mission & Vision" />
             </h2>
           </div>
-          
+
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto px-4">
             {/* Mission Card: Blue border */}
             <ScrollRevealCard delay={0}>
@@ -206,7 +206,7 @@ export default function AboutPage() {
                 </p>
               </div>
             </ScrollRevealCard>
-            
+
             {/* Vision Card: Amber border */}
             <ScrollRevealCard delay={0.15}>
               <div className="bg-white rounded-[32px] p-8 md:p-12 border-2 border-brand-amber shadow-card h-full hover:-translate-y-1 hover:shadow-card-hover transition-all duration-300">
@@ -263,7 +263,7 @@ export default function AboutPage() {
           <div className="relative max-w-3xl mx-auto px-4">
             {/* Timeline center line */}
             <div className="absolute left-8 top-0 bottom-0 w-px bg-brand-sand hidden sm:block" aria-hidden="true" />
-            
+
             <div className="space-y-10">
               {milestones.map((m, i) => {
                 const isBlue = i % 2 === 0
@@ -272,14 +272,14 @@ export default function AboutPage() {
                     <div className="flex gap-6 items-start">
                       <div className="relative flex-shrink-0">
                         {/* Alternating Blue and Amber timeline circle nodes */}
-                        <div 
+                        <div
                           className={`w-16 h-16 rounded-full flex items-center justify-center shadow-card z-10 relative border-2 border-white
                             ${isBlue ? 'bg-brand-blue text-white' : 'bg-brand-amber text-brand-charcoal'}`}
                         >
                           <span className="font-body text-xs font-bold">{m.year}</span>
                         </div>
                       </div>
-                      
+
                       {/* Content Box */}
                       <div className="bg-white rounded-[32px] p-6 sm:p-8 flex-1 mt-2 shadow-card hover:shadow-card-hover transition-shadow duration-300 border border-brand-sand/30">
                         <h3 className="font-heading font-bold text-brand-charcoal text-lg mb-2">{m.title}</h3>
@@ -354,7 +354,7 @@ export default function AboutPage() {
 
       {/* ════════════════ JOIN CTA ════════════════ */}
       <section className="py-20 md:py-28 lg:py-32 bg-[#FBF7F0] relative overflow-hidden" aria-label="Join our mission">
-        
+
         {/* Inline decorative SVG line/paths to match spec exactly */}
         <div className="absolute inset-0 pointer-events-none opacity-[0.06] flex items-center justify-center" aria-hidden="true">
           <svg viewBox="0 0 300 150" className="w-[900px] h-[450px] text-brand-blue" fill="none" stroke="currentColor" strokeWidth="1">
@@ -381,7 +381,7 @@ export default function AboutPage() {
             <Link href="/contact#volunteer" className="btn-ghost border-brand-blue text-brand-blue hover:bg-brand-blue hover:text-white px-8 py-3.5 cursor-pointer" id="about-volunteer-btn">
               Volunteer
             </Link>
-            <Link href="/contact#donate" className="btn-amber px-8 py-3.5 rounded-full text-brand-charcoal font-semibold shadow-md cursor-pointer" id="about-donate-btn">
+            <Link href="/projects" className="btn-amber px-8 py-3.5 rounded-full text-brand-charcoal font-semibold shadow-md cursor-pointer" id="about-donate-btn">
               Donate Now
             </Link>
           </div>
