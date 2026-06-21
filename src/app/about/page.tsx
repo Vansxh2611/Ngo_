@@ -5,7 +5,7 @@ import {
   Heart, Users, Eye, Target,
   Shield, Lightbulb, HandHeart
 } from 'lucide-react'
-import { ScrollRevealTypewriter, ScrollRevealWords, ScrollRevealCard } from '@/components/ui/ScrollAnimations'
+import { ScrollRevealTypewriter, ScrollRevealWords, ScrollRevealCard, ScrollRevealStagger, ScrollRevealStaggerItem } from '@/components/ui/ScrollAnimations'
 
 export const metadata: Metadata = {
   title: 'About Us — Our Story, Mission & Team',
@@ -85,13 +85,9 @@ export default function AboutPage() {
             alt="Driven by purpose"
             fill priority className="object-cover" sizes="100vw"
           />
-          <div className="absolute inset-0 bg-[#0F233B]/45 backdrop-blur-[1px]" aria-hidden="true" />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#0F233B]/20 via-transparent to-[#FBF7F0]" aria-hidden="true" />
+          <div className="absolute inset-0 bg-[#022c22]/45 backdrop-blur-[1px]" aria-hidden="true" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#022c22]/20 via-transparent to-[#FBF7F0]" aria-hidden="true" />
         </div>
-
-        {/* Editorial ambient light glows */}
-        <div className="absolute top-[-20%] right-[-10%] w-[400px] h-[400px] bg-brand-amber/15 rounded-full blur-[90px] pointer-events-none" />
-        <div className="absolute bottom-[-30%] left-[-10%] w-[400px] h-[400px] bg-brand-blue-light/10 rounded-full blur-[90px] pointer-events-none" />
 
         {/* Mesh grid pattern */}
         <div className="absolute inset-0 pointer-events-none opacity-[0.03]" aria-hidden="true">
@@ -115,7 +111,7 @@ export default function AboutPage() {
       </section>
 
       {/* ════════════════ OUR STORY (Content / Decorative SVG split) ════════════════ */}
-      <section id="programs" className="py-20 md:py-28 lg:py-32 bg-white overflow-hidden" aria-label="Our story">
+      <section id="programs" className="py-20 md:py-28 lg:py-32 section-bg-soft overflow-hidden" aria-label="Our story">
         <div className="container-wide">
           <div className="grid lg:grid-cols-[5fr_8fr] gap-16 items-center">
 
@@ -182,7 +178,7 @@ export default function AboutPage() {
       </section>
 
       {/* ════════════════ MISSION & VISION (Blue and Amber Borders) ════════════════ */}
-      <section className="py-20 md:py-28 lg:py-32 bg-[#FBF7F0] border-t border-b border-brand-sand/40 overflow-hidden" aria-label="Mission and vision">
+      <section className="py-20 md:py-28 lg:py-32 section-bg-soft border-t border-b border-brand-sand/40 overflow-hidden" aria-label="Mission and vision">
         <div className="container-wide">
           <div className="text-center mb-16">
             <p className="section-label mb-3">Our Purpose</p>
@@ -225,7 +221,7 @@ export default function AboutPage() {
       </section>
 
       {/* ════════════════ VALUES (White cards, Centered, Soft Shadow) ════════════════ */}
-      <section className="py-20 md:py-28 lg:py-32 bg-white overflow-hidden" aria-label="Our values">
+      <section className="py-20 md:py-28 lg:py-32 section-bg-soft overflow-hidden" aria-label="Our values">
         <div className="container-wide">
           <div className="text-center mb-16">
             <p className="section-label mb-3">What Drives Us</p>
@@ -234,9 +230,9 @@ export default function AboutPage() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 px-4">
+          <ScrollRevealStagger className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 px-4">
             {values.map(({ icon: Icon, title, desc, color }, idx) => (
-              <ScrollRevealCard key={title} delay={idx * 0.08}>
+              <ScrollRevealStaggerItem key={title}>
                 <div className="bg-white rounded-[32px] p-8 text-center flex flex-col items-center gap-5 shadow-card hover:shadow-card-hover hover:border-brand-amber/20 transition-all duration-300 border border-brand-sand/30 h-full">
                   <div className={`w-14 h-14 rounded-2xl flex items-center justify-center ${color}`}>
                     <Icon size={24} />
@@ -244,14 +240,14 @@ export default function AboutPage() {
                   <h3 className="font-heading font-bold text-brand-charcoal text-lg">{title}</h3>
                   <p className="font-body text-xs sm:text-sm text-brand-grey leading-relaxed">{desc}</p>
                 </div>
-              </ScrollRevealCard>
+              </ScrollRevealStaggerItem>
             ))}
-          </div>
+          </ScrollRevealStagger>
         </div>
       </section>
 
       {/* ════════════════ MILESTONES (Alternate Blue / Amber node timeline) ════════════════ */}
-      <section className="py-20 md:py-28 lg:py-32 bg-[#FBF7F0] overflow-hidden" aria-label="Our milestones">
+      <section className="py-20 md:py-28 lg:py-32 section-bg-soft overflow-hidden" aria-label="Our milestones">
         <div className="container-wide">
           <div className="text-center mb-16">
             <p className="section-label mb-3">Our Journey</p>
@@ -295,7 +291,7 @@ export default function AboutPage() {
       </section>
 
       {/* ════════════════ TEAM ════════════════ */}
-      <section className="py-20 md:py-28 lg:py-32 bg-white overflow-hidden" aria-label="Our team">
+      <section className="py-20 md:py-28 lg:py-32 section-bg-soft overflow-hidden" aria-label="Our team">
         <div className="container-wide">
           <div className="text-center mb-16">
             <p className="section-label mb-3">The People</p>
@@ -306,9 +302,9 @@ export default function AboutPage() {
               <ScrollRevealWords text="Dedicated professionals united by a shared commitment to creating lasting change." />
             </p>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 px-4">
+          <ScrollRevealStagger className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 px-4">
             {team.map((member, idx) => (
-              <ScrollRevealCard key={member.name} delay={idx * 0.05} yOffset={20}>
+              <ScrollRevealStaggerItem key={member.name}>
                 <div className="bg-white rounded-[32px] p-5 text-center group shadow-card hover:shadow-card-hover border border-brand-sand/30 hover:border-brand-amber/35 hover:-translate-y-1.5 transition-all duration-300 h-full flex flex-col justify-between">
                   <div>
                     {/* Avatar Ring with dual gradient */}
@@ -321,14 +317,14 @@ export default function AboutPage() {
                   </div>
                   <p className="font-body text-[10px] sm:text-xs text-brand-grey mt-2 uppercase tracking-wide">{member.role}</p>
                 </div>
-              </ScrollRevealCard>
+              </ScrollRevealStaggerItem>
             ))}
-          </div>
+          </ScrollRevealStagger>
         </div>
       </section>
 
       {/* ════════════════ PARTNERS ════════════════ */}
-      <section className="py-20 md:py-28 bg-[#FBF7F0] overflow-hidden" aria-label="Our partners">
+      <section className="py-20 md:py-28 section-bg-soft overflow-hidden" aria-label="Our partners">
         <div className="container-wide">
           <div className="text-center mb-12">
             <p className="section-label mb-3">Trusted By</p>
@@ -336,9 +332,9 @@ export default function AboutPage() {
               <ScrollRevealTypewriter text="Our Partners" />
             </h2>
           </div>
-          <div className="flex flex-wrap justify-center gap-4 px-4">
+          <ScrollRevealStagger className="flex flex-wrap justify-center gap-4 px-4">
             {partners.map((p, idx) => (
-              <ScrollRevealCard key={p} delay={idx * 0.05} yOffset={10}>
+              <ScrollRevealStaggerItem key={p}>
                 <div
                   className="px-6 py-3 bg-white rounded-full shadow-card font-body font-semibold
                              text-xs sm:text-sm text-brand-blue hover:shadow-card-hover hover:text-brand-amber-dark
@@ -346,14 +342,14 @@ export default function AboutPage() {
                 >
                   {p}
                 </div>
-              </ScrollRevealCard>
+              </ScrollRevealStaggerItem>
             ))}
-          </div>
+          </ScrollRevealStagger>
         </div>
       </section>
 
       {/* ════════════════ JOIN CTA ════════════════ */}
-      <section className="py-20 md:py-28 lg:py-32 bg-[#FBF7F0] relative overflow-hidden" aria-label="Join our mission">
+      <section className="py-20 md:py-28 lg:py-32 section-bg-soft relative overflow-hidden" aria-label="Join our mission">
 
         {/* Inline decorative SVG line/paths to match spec exactly */}
         <div className="absolute inset-0 pointer-events-none opacity-[0.06] flex items-center justify-center" aria-hidden="true">

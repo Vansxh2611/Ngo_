@@ -6,8 +6,8 @@ import { motion } from 'framer-motion'
 
 export default function CTASection() {
   return (
-    <section className="py-[60px] md:py-[80px] lg:py-[100px] bg-[#FBF7F0] relative overflow-hidden" aria-label="Become part of the change">
-      
+    <section className="py-32 section-bg-dark relative overflow-hidden" aria-label="Become part of the change">
+
       {/* Decorative SVG concentric circles slowly spinning in the background */}
       <motion.div 
         animate={{ rotate: 360 }}
@@ -32,7 +32,7 @@ export default function CTASection() {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.7 }}
-          className="bg-brand-charcoal text-white rounded-[32px] px-8 py-16 md:py-24 text-center max-w-[1000px] mx-auto shadow-card-hover relative overflow-hidden border border-white/5"
+          className="bg-white/5 backdrop-blur-md text-white rounded-2xl px-8 py-16 md:py-24 text-center max-w-[1000px] mx-auto shadow-elev-2 relative overflow-hidden border border-white/10"
         >
           {/* Ambient gold glow in card */}
           <div className="absolute -top-20 -right-20 w-64 h-64 bg-brand-amber/10 rounded-full blur-3xl pointer-events-none" />

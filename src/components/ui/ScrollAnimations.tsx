@@ -1,14 +1,14 @@
 'use client'
 
-import React from 'react'
-import { motion } from 'framer-motion'
+import React, { useRef } from 'react'
+import { motion, useInView } from 'framer-motion'
 
 // Typing effect letter-by-letter on scroll
 export function ScrollRevealTypewriter({
   text,
   className = "",
   delay = 0,
-  once = false
+  once = true
 }: {
   text: string
   className?: string
@@ -16,6 +16,8 @@ export function ScrollRevealTypewriter({
   once?: boolean
 }) {
   const words = text.split(" ")
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once, amount: 0.1 })
 
   const container = {
     hidden: { opacity: 0 },
@@ -43,11 +45,12 @@ export function ScrollRevealTypewriter({
 
   return (
     <motion.span
-      style={{ display: "inline-block" }}
+      ref={ref}
+      style={{ display: "inline-block", willChange: isInView ? "opacity" : "auto" }}
       variants={container}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once, margin: "-40px" }}
+      viewport={{ once, amount: 0.1 }}
       className={className}
     >
       {words.map((word, wordIndex) => {
@@ -79,12 +82,12 @@ export function ScrollRevealTypewriter({
   )
 }
 
-// Word-by-word slide up reveal
+// Motion Level 1: Word-by-word slide up reveal
 export function ScrollRevealWords({
   text,
   className = "",
   delay = 0,
-  once = false
+  once = true
 }: {
   text: string
   className?: string
@@ -92,15 +95,16 @@ export function ScrollRevealWords({
   once?: boolean
 }) {
   const words = text.split(" ")
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once, amount: 0.1 })
 
   const container = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.04,
+        staggerChildren: 0.03,
         delayChildren: delay,
-        ease: "easeOut"
       },
     },
   } as any
@@ -110,24 +114,24 @@ export function ScrollRevealWords({
       opacity: 1,
       y: 0,
       transition: {
-        type: "spring",
-        damping: 15,
-        stiffness: 100,
+        duration: 0.8,
+        ease: [0.16, 1, 0.3, 1] // Apple-style easeOutExpo
       },
     },
     hidden: {
       opacity: 0,
-      y: 12,
+      y: 15,
     },
   } as any
 
   return (
     <motion.span
-      style={{ display: "inline-block" }}
+      ref={ref}
+      style={{ display: "inline-block", willChange: isInView ? "transform, opacity" : "auto" }}
       variants={container}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once, margin: "-50px" }}
+      viewport={{ once, amount: 0.1 }}
       className={className}
     >
       {words.map((word, index) => (
@@ -143,13 +147,13 @@ export function ScrollRevealWords({
   )
 }
 
-// Card fade-up reveal with stagger delay
+// Motion Level 2: Card fade-up reveal with depth (scale + y)
 export function ScrollRevealCard({
   children,
   className = "",
   delay = 0,
-  yOffset = 30,
-  once = false
+  yOffset = 40,
+  once = true
 }: {
   children: React.ReactNode
   className?: string
@@ -157,17 +161,120 @@ export function ScrollRevealCard({
   yOffset?: number
   once?: boolean
 }) {
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once, amount: 0.15 })
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: yOffset }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once, margin: "-80px" }}
+      ref={ref}
+      initial={{ opacity: 0, y: yOffset, scale: 0.96 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once, amount: 0.15 }}
       transition={{
-        duration: 0.6,
-        delay,
         type: "spring",
-        damping: 20,
-        stiffness: 90
+        stiffness: 60,
+        damping: 18,
+        mass: 1.1,
+        delay
+      }}
+      style={{ willChange: isInView ? "transform, opacity" : "auto" }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  )
+}
+
+// Motion Level 1: Section fade-in wrapper
+export function ScrollRevealSection({
+  children,
+  className = "",
+  once = true
+}: {
+  children: React.ReactNode
+  className?: string
+  once?: boolean
+}) {
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once, amount: 0.1 })
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once, amount: 0.1 }}
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      style={{ willChange: isInView ? "transform, opacity" : "auto" }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  )
+}
+
+// Motion Level 3: Stagger Grid Container
+export function ScrollRevealStagger({
+  children,
+  className = "",
+  once = true,
+  delay = 0
+}: {
+  children: React.ReactNode
+  className?: string
+  once?: boolean
+  delay?: number
+}) {
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once, amount: 0.15 })
+
+  return (
+    <motion.div
+      ref={ref}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once, amount: 0.15 }}
+      variants={{
+        hidden: { opacity: 0 },
+        visible: {
+          opacity: 1,
+          transition: {
+            staggerChildren: 0.12,
+            delayChildren: delay,
+          }
+        }
+      }}
+      style={{ willChange: isInView ? "transform, opacity" : "auto" }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  )
+}
+
+// Motion Level 3: Stagger Grid Item
+export function ScrollRevealStaggerItem({
+  children,
+  className = "",
+}: {
+  children: React.ReactNode
+  className?: string
+}) {
+  return (
+    <motion.div
+      variants={{
+        hidden: { opacity: 0, y: 40, scale: 0.96 },
+        visible: {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          transition: {
+            type: "spring",
+            stiffness: 60,
+            damping: 18,
+            mass: 1.1
+          }
+        }
       }}
       className={className}
     >
@@ -176,25 +283,3 @@ export function ScrollRevealCard({
   )
 }
 
-// Section fade-in wrapper
-export function ScrollRevealSection({
-  children,
-  className = "",
-  once = false
-}: {
-  children: React.ReactNode
-  className?: string
-  once?: boolean
-}) {
-  return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      viewport={{ once, margin: "-120px" }}
-      transition={{ duration: 0.8 }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  )
-}

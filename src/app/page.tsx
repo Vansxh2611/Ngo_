@@ -6,6 +6,7 @@ import { ArrowRight } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import HeroSection from '@/components/sections/HeroSection'
 import WhoWeAre from '@/components/sections/WhoWeAre'
+import ImpactJourney from '@/components/sections/ImpactJourney'
 import DomainMosaic from '@/components/sections/DomainMosaic'
 import CTASection from '@/components/sections/CTASection'
 import StatCounter from '@/components/ui/StatCounter'
@@ -68,11 +69,14 @@ export default function HomePage() {
       {/* 2. WHO WE ARE */}
       <WhoWeAre />
 
+      {/* IMPACT JOURNEY */}
+      <ImpactJourney />
+
       {/* 3. DOMAIN MOSAIC */}
       <DomainMosaic />
 
       {/* 4. IMPACT STATS */}
-      <section className="py-20 md:py-28 lg:py-32 bg-white border-t border-brand-sand/50" aria-label="Impact Stats">
+      <section className="py-20 md:py-28 lg:py-32 section-bg-soft border-t border-brand-sand/50" aria-label="Impact Stats">
         <div className="container-wide px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center max-w-[1000px] mx-auto">
             <ScrollRevealCard delay={0}>
@@ -92,7 +96,7 @@ export default function HomePage() {
       <CTASection />
 
       {/* 6. STORIES OF CHANGE (NEWS / BLOG GRID) */}
-      <section className="py-20 md:py-28 lg:py-32 bg-white border-t border-b border-brand-sand/30" aria-label="Latest Stories">
+      <section className="py-20 md:py-28 lg:py-32 section-bg-soft border-t border-b border-brand-sand/30" aria-label="Latest Stories">
         <div className="container-wide px-4">
 
           {/* Header */}
@@ -170,7 +174,7 @@ export default function HomePage() {
       </section>
 
       {/* 7. JOIN CTA */}
-      <section className="py-20 md:py-28 lg:py-32 bg-[#FBF7F0] relative overflow-hidden" aria-label="Join our mission">
+      <section className="py-20 md:py-28 lg:py-32 section-bg-soft relative overflow-hidden" aria-label="Join our mission">
 
         {/* Inline decorative SVG line/paths to match spec exactly */}
         <div className="absolute inset-0 pointer-events-none opacity-[0.06] flex items-center justify-center" aria-hidden="true">

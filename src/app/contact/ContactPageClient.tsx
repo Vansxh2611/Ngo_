@@ -5,7 +5,8 @@ import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Phone, Mail, MapPin, Send, ChevronDown, ChevronUp, Users, Share2 } from 'lucide-react'
 import { InstagramIcon, FacebookIcon, XIcon, LinkedInIcon, YouTubeIcon } from '@/components/ui/SocialIcons'
-import { ScrollRevealTypewriter, ScrollRevealWords, ScrollRevealCard } from '@/components/ui/ScrollAnimations'
+import { ScrollRevealTypewriter, ScrollRevealWords, ScrollRevealCard, ScrollRevealStagger, ScrollRevealStaggerItem } from '@/components/ui/ScrollAnimations'
+import { PremiumCard } from '@/components/ui/PremiumCard'
 
 const faqs = [
   {
@@ -65,8 +66,8 @@ export default function ContactPageClient() {
             alt="Let's create impact together"
             fill priority className="object-cover" sizes="100vw"
           />
-          <div className="absolute inset-0 bg-[#0F233B]/40 backdrop-blur-[1px]" aria-hidden="true" />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#0F233B]/20 via-transparent to-[#FBF7F0]" aria-hidden="true" />
+          <div className="absolute inset-0 bg-[#111827]/40 backdrop-blur-[1px]" aria-hidden="true" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#111827]/20 via-transparent to-[#FBF7F0]" aria-hidden="true" />
         </div>
 
         <div className="relative container-wide pt-36 pb-28 z-10 text-center px-4">
@@ -91,10 +92,10 @@ export default function ContactPageClient() {
       </section>
 
       {/* ════════ INFO CARDS (4 Cards Grid, Overlapping the Hero) ════════ */}
-      <section id="donate" className="bg-[#FBF7F0] py-16 md:py-24 relative z-20" aria-label="Contact info cards">
+      <section id="donate" className="section-bg-soft py-16 md:py-24 relative z-20" aria-label="Contact info cards">
         <div id="donor" className="absolute -top-24" />
         <div className="container-wide px-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative z-30">
+          <ScrollRevealStagger className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative z-30">
             {[
               {
                 type: 'info',
@@ -146,82 +147,83 @@ export default function ContactPageClient() {
               }
             ].map((card, i) => {
               const Icon = card.icon
+              const isAmber = card.label === 'Phone' || card.label === 'Connect'
               return (
-                <ScrollRevealCard
-                  key={card.label}
-                  delay={i * 0.08}
-                  yOffset={0}
-                  className={`bg-white/90 backdrop-blur-xl rounded-[32px] p-7 md:p-8 flex flex-col items-start justify-between text-left gap-5 shadow-card hover:shadow-card-hover border border-brand-sand/25 hover:-translate-y-2.5 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group/card h-full min-h-[300px] relative overflow-hidden ${card.borderHoverClass} ${card.glowClass}`}
-                >
-                  {/* Premium top accent sliding gradient line */}
-                  <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-brand-blue via-brand-amber to-brand-blue-light opacity-0 group-hover/card:opacity-100 transition-all duration-500" />
+                <ScrollRevealStaggerItem key={card.label} className="h-full">
+                  <PremiumCard
+                    variant={isAmber ? 'amber' : 'blue'}
+                    className="bg-white/90 backdrop-blur-xl p-7 md:p-8 flex flex-col items-start justify-between text-left gap-5 border border-brand-sand/25 h-full min-h-[300px] relative overflow-hidden group/card"
+                  >
+                    {/* Premium top accent sliding gradient line */}
+                    <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-brand-blue via-brand-amber to-brand-blue-light opacity-0 group-hover/card:opacity-100 transition-all duration-500" />
 
-                  {/* Large absolute faint watermark icon in bottom-right - aligned and sized properly */}
-                  <div className="absolute bottom-[-15px] right-[-15px] text-brand-sand/20 pointer-events-none transition-all duration-500 scale-100 group-hover/card:scale-110 group-hover/card:text-brand-amber/15 z-0">
-                    <Icon size={96} strokeWidth={1} />
-                  </div>
-
-                  {/* Top content wrapper - stays above watermark background */}
-                  <div className="flex flex-col items-start w-full relative z-10 flex-1">
-                    {/* Animated Premium Icon Holder */}
-                    <div className={`w-12 h-12 rounded-2xl flex items-center justify-center border transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] mb-5 ${card.iconGlow}`}>
-                      <Icon size={20} className={`${card.iconColor} transition-all duration-500`} />
+                    {/* Large absolute faint watermark icon in bottom-right - aligned and sized properly */}
+                    <div className="absolute bottom-[-15px] right-[-15px] text-brand-sand/20 pointer-events-none transition-all duration-500 scale-100 group-hover/card:scale-110 group-hover/card:text-brand-amber/15 z-0">
+                      <Icon size={96} strokeWidth={1} />
                     </div>
 
-                    <p className="font-body text-[10px] font-bold uppercase tracking-widest text-brand-grey/50 mb-1.5">{card.label}</p>
-
-                    {card.type === 'info' ? (
-                      <a
-                        href={card.href}
-                        {...(card.label === 'Location' ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                        className="font-body font-semibold text-brand-charcoal text-base sm:text-lg leading-relaxed hover:text-brand-blue transition-colors duration-200 break-all sm:break-normal w-full"
-                      >
-                        {card.value}
-                      </a>
-                    ) : (
-                      <div className="flex flex-wrap gap-2 pt-1 w-full" aria-label="Social media channels">
-                        {[
-                          { icon: InstagramIcon, href: 'https://instagram.com', label: 'Instagram' },
-                          { icon: FacebookIcon, href: 'https://facebook.com', label: 'Facebook' },
-                          { icon: XIcon, href: 'https://twitter.com', label: 'Twitter' },
-                          { icon: LinkedInIcon, href: 'https://linkedin.com', label: 'LinkedIn' },
-                          { icon: YouTubeIcon, href: 'https://youtube.com', label: 'YouTube' }
-                        ].map((soc, idx) => {
-                          const SocIcon = soc.icon
-                          return (
-                            <a
-                              key={idx}
-                              href={soc.href}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              aria-label={soc.label}
-                              className="w-9 h-9 rounded-xl bg-[#FBF7F0] border border-brand-sand/50 flex items-center justify-center hover:bg-brand-blue hover:text-white hover:border-brand-blue hover:-translate-y-1 hover:shadow-md transition-all duration-300 group/soc"
-                            >
-                              <SocIcon className="w-4 h-4 text-brand-grey group-hover/soc:text-white transition-colors duration-300" />
-                            </a>
-                          )
-                        })}
+                    {/* Top content wrapper - stays above watermark background */}
+                    <div className="flex flex-col items-start w-full relative z-10 flex-1">
+                      {/* Animated Premium Icon Holder */}
+                      <div className={`w-12 h-12 rounded-2xl flex items-center justify-center border transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] mb-5 ${card.iconGlow}`}>
+                        <Icon size={20} className={`${card.iconColor} transition-all duration-500`} />
                       </div>
-                    )}
-                  </div>
 
-                  {/* Subtext aligned at the bottom with thin divider line */}
-                  <p className="font-body text-xs text-brand-grey/60 pt-4 border-t border-brand-sand/15 relative z-10 w-full mt-auto">{card.sub}</p>
-                </ScrollRevealCard>
+                      <p className="font-body text-[10px] font-bold uppercase tracking-widest text-brand-grey/50 mb-1.5">{card.label}</p>
+
+                      {card.type === 'info' ? (
+                        <a
+                          href={card.href}
+                          {...(card.label === 'Location' ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                          className="font-body font-semibold text-brand-charcoal text-base sm:text-lg leading-relaxed hover:text-brand-blue transition-colors duration-200 break-all sm:break-normal w-full"
+                        >
+                          {card.value}
+                        </a>
+                      ) : (
+                        <div className="flex flex-wrap gap-2 pt-1 w-full" aria-label="Social media channels">
+                          {[
+                            { icon: InstagramIcon, href: 'https://instagram.com', label: 'Instagram' },
+                            { icon: FacebookIcon, href: 'https://facebook.com', label: 'Facebook' },
+                            { icon: XIcon, href: 'https://twitter.com', label: 'Twitter' },
+                            { icon: LinkedInIcon, href: 'https://linkedin.com', label: 'LinkedIn' },
+                            { icon: YouTubeIcon, href: 'https://youtube.com', label: 'YouTube' }
+                          ].map((soc, idx) => {
+                            const SocIcon = soc.icon
+                            return (
+                              <a
+                                key={idx}
+                                href={soc.href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label={soc.label}
+                                className="w-9 h-9 rounded-xl bg-[#FBF7F0] border border-brand-sand/50 flex items-center justify-center hover:bg-brand-blue hover:text-white hover:border-brand-blue hover:-translate-y-1 hover:shadow-md transition-all duration-300 group/soc"
+                              >
+                                <SocIcon className="w-4 h-4 text-brand-grey group-hover/soc:text-white transition-colors duration-300" />
+                              </a>
+                            )
+                          })}
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Subtext aligned at the bottom with thin divider line */}
+                    <p className="font-body text-xs text-brand-grey/60 pt-4 border-t border-brand-sand/15 relative z-10 w-full mt-auto">{card.sub}</p>
+                  </PremiumCard>
+                </ScrollRevealStaggerItem>
               )
             })}
-          </div>
+          </ScrollRevealStagger>
         </div>
       </section>
 
       {/* ════════ MAP & FORM GRID (Map Left, Form Right) ════════ */}
-      <section id="join" className="py-20 md:py-28 lg:py-32 bg-white border-t border-brand-sand/30" aria-label="Contact form and map">
+      <section id="join" className="py-20 md:py-28 lg:py-32 section-bg-soft border-t border-brand-sand/30" aria-label="Contact form and map">
         <div className="container-wide">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-stretch px-4">
 
             {/* Map (Left) */}
             <ScrollRevealCard
-              className="rounded-[32px] overflow-hidden shadow-card min-h-[400px] lg:h-full relative border border-brand-sand/30 group"
+              className="rounded-2xl overflow-hidden shadow-elev-1 min-h-[400px] lg:h-full relative border border-brand-sand/40 group"
             >
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d241317.11609823055!2d72.74109995709657!3d19.08219783958221!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c6306644edc1%3A0x5da4ed8f8d648c69!2sMumbai%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1718000000000!5m2!1sen!2sin"
@@ -315,7 +317,7 @@ export default function ContactPageClient() {
       </section>
 
       {/* ════════ VOLUNTEER (Cream bg, Rebuilt full interactive form) ════════ */}
-      <section id="volunteer" className="py-20 md:py-28 lg:py-32 bg-[#FBF7F0] relative overflow-hidden" aria-label="Volunteer Section">
+      <section id="volunteer" className="py-20 md:py-28 lg:py-32 section-bg-soft relative overflow-hidden" aria-label="Volunteer Section">
 
         {/* Concentric rotating wave lines background */}
         <div className="absolute inset-0 pointer-events-none opacity-[0.04] flex items-center justify-center" aria-hidden="true">
@@ -454,7 +456,7 @@ export default function ContactPageClient() {
       </section>
 
       {/* ════════ FAQ (Accordions, 24px Radius, Animated) ════════ */}
-      <section id="faq" className="py-20 md:py-28 lg:py-32 bg-white" aria-label="Frequently asked questions">
+      <section id="faq" className="py-20 md:py-28 lg:py-32 section-bg-soft" aria-label="Frequently asked questions">
         <div className="container-wide max-w-3xl mx-auto px-4">
           <div className="text-center mb-12">
             <p className="section-label mb-3">Got Questions?</p>

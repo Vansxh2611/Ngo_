@@ -86,6 +86,9 @@
 /* ─── Root Variables ─────────────────────────────────────── */
 :root {
   --section-y: clamp(60px, 8vw, 100px);
+  --depth-flat: none;
+  --depth-soft: 0 10px 30px rgba(0,0,0,0.06);
+  --depth-medium: 0 20px 60px rgba(0,0,0,0.08);
 }
 
 /* ─── Base Resets ────────────────────────────────────────── */
@@ -99,14 +102,48 @@ html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
 body {
-  background-color: #FBF7F0;
   color: #1C1C1E;
   font-family: 'Inter', system-ui, sans-serif;
   line-height: 1.65;
   font-size: 16px;
+  overflow-x: hidden;
+  max-width: 100%;
+
+  /* Layered luxury background */
+  background-color: #FBF7F0;
+  background-image:
+    /* Warm amber radial — top-left anchor */
+    radial-gradient(ellipse 80% 60% at 5% 0%, rgba(240, 169, 42, 0.05) 0%, transparent 65%),
+    /* Cool blue radial — bottom-right anchor */
+    radial-gradient(ellipse 70% 50% at 95% 100%, rgba(74, 127, 165, 0.05) 0%, transparent 60%);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.012;
+  mix-blend-mode: overlay;
+  z-index: 9999;
+}
+
+@media (prefers-contrast: more) {
+  body::before {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::before {
+    display: none;
+  }
 }
 
 @media (min-width: 1024px) {
@@ -144,6 +181,14 @@ textarea:focus-visible,
 }
 
 /* ─── Layout Utilities ───────────────────────────────────── */
+.scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none !important;
+}
+
 .section-padding {
   padding-top: var(--section-y);
   padding-bottom: var(--section-y);
@@ -251,13 +296,31 @@ textarea:focus-visible,
 .card {
   background: white;
   border-radius: 32px;
-  box-shadow: 0 2px 16px 0 rgba(26, 58, 92, 0.08);
-  transition: all 0.3s ease;
+  box-shadow: 0 2px 16px rgba(26, 58, 92, 0.06);
 }
 
-.card:hover {
-  box-shadow: 0 8px 32px 0 rgba(26, 58, 92, 0.16);
-  transform: translateY(-4px);
+/* ─── Luxury Section Backgrounds ────────────────────────── */
+
+/* Consolidated Cream mesh background with 2 static radial gradients */
+.section-bg-soft {
+  background-color: #FBF7F0;
+  background-image:
+    radial-gradient(at 10% 20%, rgba(240, 169, 42, 0.04) 0px, transparent 45%),
+    radial-gradient(at 90% 80%, rgba(74, 127, 165, 0.05) 0px, transparent 45%);
+}
+
+/* Consolidated Dark mesh background with 1 static radial gradient */
+.section-bg-dark {
+  background-color: #111827;
+  background-image:
+    radial-gradient(at 80% 20%, rgba(74, 127, 165, 0.06) 0px, transparent 50%);
+}
+
+/* Consolidated Emerald mesh background with 1 static radial gradient */
+.section-bg-emerald {
+  background-color: #022c22;
+  background-image:
+    radial-gradient(at 50% 0%, rgba(16, 185, 129, 0.06) 0px, transparent 50%);
 }
 
 /* ─── Badges ─────────────────────────────────────────────── */
@@ -365,4 +428,58 @@ textarea:focus-visible,
 
 ::-webkit-scrollbar-thumb:hover {
   background: #1A3A5C;
+}
+
+/* ─── Map Pulse Animation ────────────────────────────────── */
+@keyframes mapPulse {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.7;
+  }
+  70% {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+}
+
+.animate-map-pulse {
+  animation: mapPulse 2.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-map-pulse {
+    animation: none;
+  }
+}
+
+@keyframes gradientMove {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+.animate-gradient-slow {
+  background-size: 200% 200%;
+  animation: gradientMove 15s ease infinite;
+}
+
+@keyframes lineShimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+.animate-line-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+.animate-line-shimmer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 50%;
+  background: linear-gradient(90deg, transparent, rgba(232, 165, 61, 0.3), transparent);
+  animation: lineShimmer 3.5s infinite ease-in-out;
 }

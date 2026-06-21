@@ -62,23 +62,23 @@ export default function HeroSection() {
     return () => clearTimeout(timer)
   }, [subText, isDeleting, wordIdx])
 
-  // Parallax scroll effect on background image
+  // Parallax scroll effect on background image (restricted to max 5px for performance)
   const { scrollY } = useScroll()
-  const bgY = useTransform(scrollY, [0, 800], ['0%', '18%'])
+  const bgY = useTransform(scrollY, [0, 800], ['0px', '5px'])
 
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden" aria-label="Hero section">
       {/* Parallax Background Image */}
       <motion.div
         style={{ y: bgY }}
-        className="absolute inset-0 w-full h-[120%] -top-[10%]"
+        className="absolute inset-0 w-full h-full"
       >
         <Image
           src="https://images.unsplash.com/photo-1524069290683-0457abfe42c3?w=1600&q=80"
           alt="Dua Trust — Creating sustainable change together"
           fill
           priority
-          className="object-cover"
+          className="object-cover animate-fade-in-up"
           sizes="100vw"
         />
       </motion.div>
@@ -89,9 +89,14 @@ export default function HeroSection() {
       {/* Hero content */}
       <div className="relative container-wide z-10 text-center px-4">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          initial={{ opacity: 0, y: 40, scale: 0.96 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{
+            type: 'spring',
+            stiffness: 60,
+            damping: 18,
+            mass: 1.1
+          }}
           className="max-w-[720px] mx-auto flex flex-col items-center"
         >
           <span className="inline-block px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20

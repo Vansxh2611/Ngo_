@@ -8,7 +8,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Search, Calendar, User, ArrowRight, BookOpen, Trophy, Filter, X, ChevronDown } from 'lucide-react'
 import { formatDate } from '@/lib/utils'
 import { publicationsData, PublicationItem, PublicationType } from '@/data/publications'
-import { ScrollRevealTypewriter, ScrollRevealWords, ScrollRevealCard } from '@/components/ui/ScrollAnimations'
+import { ScrollRevealTypewriter, ScrollRevealWords, ScrollRevealCard, ScrollRevealStagger, ScrollRevealStaggerItem } from '@/components/ui/ScrollAnimations'
+import { PremiumCard } from '@/components/ui/PremiumCard'
 
 const categories = [
   'All',
@@ -44,8 +45,9 @@ function PublicationCard({ item }: { item: PublicationItem }) {
   const isBlog = item.type === 'blog'
 
   return (
-    <article
-      className="card overflow-hidden flex flex-col group border border-brand-sand/35 hover:border-brand-amber/35 hover:-translate-y-1.5 hover:shadow-card-hover transition-all duration-300 bg-white h-full relative"
+    <PremiumCard
+      variant={isBlog ? 'blue' : 'amber'}
+      className="overflow-hidden flex flex-col group border-brand-sand/40 bg-white"
       aria-label={`${isBlog ? 'Blog post' : 'Achievement'}: ${item.title}`}
     >
       {/* Card Image */}
@@ -84,7 +86,7 @@ function PublicationCard({ item }: { item: PublicationItem }) {
       </div>
 
       {/* Content Body */}
-      <div className="p-6 flex flex-col flex-1">
+      <div className="p-7 lg:p-8 flex flex-col flex-1">
         {/* Meta */}
         <div className="flex items-center gap-3 mb-3">
           <span className="flex items-center gap-1.5 text-xs text-brand-grey font-body">
@@ -127,7 +129,7 @@ function PublicationCard({ item }: { item: PublicationItem }) {
           </div>
         )}
       </div>
-    </article>
+    </PremiumCard>
   )
 }
 
@@ -277,10 +279,7 @@ export default function BlogPageClient() {
   return (
     <>
       {/* ════════ HERO SECTION ════════ */}
-      <section className="relative bg-[#0F233B] pt-36 pb-20 overflow-hidden" aria-label="Publications Hero">
-        {/* Editorial ambient blurs */}
-        <div className="absolute top-[-20%] right-[-10%] w-[500px] h-[500px] bg-brand-amber/10 rounded-full blur-[100px] pointer-events-none" />
-        <div className="absolute bottom-[-30%] left-[-10%] w-[500px] h-[500px] bg-brand-blue-light/10 rounded-full blur-[100px] pointer-events-none" />
+      <section className="relative section-bg-dark pt-36 pb-20 overflow-hidden" aria-label="Publications Hero">
 
         {/* Thin mesh grid lines for structural design */}
         <div className="absolute inset-0 pointer-events-none opacity-[0.03]" aria-hidden="true">
@@ -306,7 +305,7 @@ export default function BlogPageClient() {
 
       {/* ════════ CATEGORY TABS ════════ */}
       <section
-        className="bg-[#FBF7F0] border-b border-brand-sand/40 py-4"
+        className="section-bg-soft border-b border-brand-sand/40 py-4"
         aria-label="Category filter"
       >
         <div className="container-wide px-4 flex items-center justify-between gap-4">
@@ -354,12 +353,12 @@ export default function BlogPageClient() {
 
       {/* ════════ FEATURED STORY BANNER ════════ */}
       {showFeaturedSection && featured && (
-        <section className="pt-16 pb-8 bg-[#FBF7F0]" aria-label="Featured Publication">
+        <section className="pt-16 pb-8 section-bg-soft" aria-label="Featured Publication">
           <div className="container-wide px-4">
             <ScrollRevealCard delay={0}>
-              <div className="grid md:grid-cols-[6fr_5fr] gap-8 bg-white rounded-[32px] shadow-card overflow-hidden p-6 sm:p-8 border border-brand-sand/35 hover:-translate-y-1 hover:shadow-card-hover transition-all duration-300">
+              <div className="grid md:grid-cols-[6fr_5fr] gap-8 bg-white rounded-2xl shadow-elev-2 overflow-hidden p-7 lg:p-8 border border-brand-sand/40 hover:-translate-y-1 hover:shadow-elev-3 hover:scale-[1.005] transition-all duration-300">
                 {/* Left Side: Image */}
-                <div className="relative h-[300px] md:h-[400px] rounded-[24px] overflow-hidden shadow-sm group">
+                <div className="relative h-[300px] md:h-[400px] rounded-xl overflow-hidden shadow-sm group">
                   <Image
                     src={featured.coverImage}
                     alt={featured.title}
@@ -416,7 +415,7 @@ export default function BlogPageClient() {
       )}
 
       {/* ════════ MAIN CONTENT AREA (TWO-COLUMN) ════════ */}
-      <section className="py-12 bg-[#FBF7F0]" aria-label="Publications Feed">
+      <section className="py-12 section-bg-soft" aria-label="Publications Feed">
         <div className="container-wide px-4">
           <div className="grid lg:grid-cols-4 gap-8">
             {/* ── Main Column (Grid of Cards) ── */}
@@ -428,7 +427,7 @@ export default function BlogPageClient() {
               </div>
 
               {filtered.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <ScrollRevealStagger className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <AnimatePresence mode="popLayout">
                     {filtered.map((item, idx) => (
                       <motion.div
@@ -439,15 +438,15 @@ export default function BlogPageClient() {
                         exit={{ opacity: 0, y: -15 }}
                         transition={{ duration: 0.35, ease: 'easeInOut' }}
                       >
-                        <ScrollRevealCard delay={idx % 2 * 0.05} yOffset={15} className="h-full">
+                        <ScrollRevealStaggerItem>
                           <PublicationCard item={item} />
-                        </ScrollRevealCard>
+                        </ScrollRevealStaggerItem>
                       </motion.div>
                     ))}
                   </AnimatePresence>
-                </div>
+                </ScrollRevealStagger>
               ) : (
-                <div className="text-center py-20 bg-white rounded-[32px] shadow-sm border border-brand-sand/30 px-6">
+                <div className="text-center py-20 bg-white rounded-2xl shadow-sm border border-brand-sand/30 px-6">
                   <p className="font-heading text-2xl text-brand-charcoal mb-2">No publications found</p>
                   <p className="font-body text-brand-grey text-sm mb-6">
                     Try adjusting your category, search filters, or reset options.
@@ -466,7 +465,7 @@ export default function BlogPageClient() {
             {/* ── Desktop Sticky Sidebar ── */}
             <aside className="hidden lg:block lg:col-span-1" aria-label="Publications sidebar filters">
               <ScrollRevealCard delay={0.1}>
-                <div className="bg-white rounded-[32px] p-6 sticky top-24 space-y-6 border border-brand-sand/35 shadow-card">
+                <div className="bg-white rounded-2xl p-6 sticky top-24 space-y-6 border border-brand-sand/35 shadow-elev-1">
                   {/* Search */}
                   <div className="space-y-2">
                     <label

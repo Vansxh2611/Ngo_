@@ -2,6 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Calendar, User, ArrowRight, Tag } from 'lucide-react'
 import { formatDate } from '@/lib/utils'
+import { PremiumCard } from '@/components/ui/PremiumCard'
 
 export interface BlogCardProps {
   slug: string
@@ -25,8 +26,9 @@ export default function BlogCard({
   featured = false,
 }: BlogCardProps) {
   return (
-    <article
-      className={`card overflow-hidden flex flex-col group border border-brand-sand/35 hover:border-brand-amber/30 transition-all duration-300 ${featured ? 'md:flex-row' : ''}`}
+    <PremiumCard
+      variant="blue"
+      className={`overflow-hidden flex flex-col group ${featured ? 'md:flex-row' : ''}`}
       aria-label={`Blog post: ${title}`}
     >
       {/* Image */}
@@ -86,6 +88,6 @@ export default function BlogCard({
           <ArrowRight size={14} />
         </Link>
       </div>
-    </article>
+    </PremiumCard>
   )
 }

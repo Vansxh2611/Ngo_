@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
+import { PremiumCard } from '@/components/ui/PremiumCard'
 
 interface CommunityCardProps {
   id: string
@@ -30,14 +31,14 @@ export default function CommunityCard({
   const category = focusTags[0] || 'Community'
 
   return (
-    <div
+    <PremiumCard
+      variant="amber"
       className={cn(
-        "group relative overflow-hidden cursor-pointer rounded-[20px] p-5 border border-[#E8A53D]/15 transition-all duration-[450ms] ease-[cubic-bezier(0.23,1,0.32,1)] hover:-translate-y-2 hover:scale-[1.01] hover:border-[#E8A53D]/35 hover:shadow-[0_24px_48px_rgba(10,26,58,0.12),0_8px_20px_rgba(10,26,58,0.08),0_0_0_1px_rgba(232,165,61,0.2)] flex flex-col justify-between h-full",
+        "group relative overflow-hidden cursor-pointer rounded-[20px] p-5 border border-[#E8A53D]/15 flex flex-col justify-between h-full shadow-[0_1px_2px_rgba(10,26,58,0.04),_0_4px_16px_rgba(10,26,58,0.06),_0_12px_32px_rgba(10,26,58,0.05)]",
         className
       )}
       style={{
         background: 'radial-gradient(ellipse at center, rgba(232,165,61,0.05), transparent 70%), linear-gradient(160deg, #FFFFFF 0%, #FDFAF4 50%, #FAF6ED 100%)',
-        boxShadow: '0 1px 2px rgba(10,26,58,0.04), 0 4px 16px rgba(10,26,58,0.06), 0 12px 32px rgba(10,26,58,0.05)'
       }}
     >
       {/* ── SHIMMER TOP LINE ── */}
@@ -112,11 +113,10 @@ export default function CommunityCard({
 
             {/* ROLE DOT */}
             <div
-              className={`absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full ring-2 ring-white ${
-                role === 'DONOR'
+              className={`absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full ring-2 ring-white ${role === 'DONOR'
                   ? 'bg-gradient-to-br from-[#E8A53D] to-[#F4C06A]'
                   : 'bg-gradient-to-br from-[#0A1A3A] to-[#1E3A6E]'
-              }`}
+                }`}
             />
           </div>
 
@@ -317,6 +317,6 @@ export default function CommunityCard({
           </Link>
         </div>
       </div>
-    </div>
+    </PremiumCard>
   )
 }

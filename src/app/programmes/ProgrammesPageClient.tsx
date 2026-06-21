@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { MapPin, ArrowRight, Award } from 'lucide-react'
-import { ScrollRevealCard } from '@/components/ui/ScrollAnimations'
+import { ScrollRevealStagger, ScrollRevealStaggerItem } from '@/components/ui/ScrollAnimations'
 
 const categories = [
   'All Programmes',
@@ -188,12 +188,9 @@ export default function ProgrammesPageClient() {
     <>
       {/* Hero Section */}
       <section
-        className="bg-brand-cream pt-36 pb-16 md:pt-44 md:pb-24 border-b border-brand-sand/30 relative"
+        className="section-bg-soft pt-36 pb-16 md:pt-44 md:pb-24 border-b border-brand-sand/30 relative"
         aria-labelledby="programmes-hero-heading"
       >
-        {/* Editorial ambient light glows */}
-        <div className="absolute top-[-10%] right-[-5%] w-[350px] h-[350px] bg-brand-amber/10 rounded-full blur-[80px] pointer-events-none" />
-        <div className="absolute top-[10%] left-[-5%] w-[350px] h-[350px] bg-brand-blue-light/5 rounded-full blur-[80px] pointer-events-none" />
 
         <div className="container-wide px-4 lg:px-8">
           <div className="max-w-3xl mx-auto text-center">
@@ -216,7 +213,7 @@ export default function ProgrammesPageClient() {
 
       {/* Filter Navigation */}
       <section
-        className="bg-[#FBF7F0] border-b border-brand-sand/40 py-4"
+        className="section-bg-soft border-b border-brand-sand/40 py-4"
         aria-label="Category filter"
       >
         <div className="container-wide px-4 lg:px-8 flex items-center justify-center">
@@ -250,7 +247,7 @@ export default function ProgrammesPageClient() {
       </section>
 
       {/* Programmes Listing */}
-      <section className="py-16 md:py-24 bg-white" aria-label="Programmes list">
+      <section className="py-16 md:py-24 section-bg-soft" aria-label="Programmes list">
         <div className="container-wide px-4 lg:px-8">
           <div className="max-w-[1100px] mx-auto">
             {/* Show Count */}
@@ -267,7 +264,7 @@ export default function ProgrammesPageClient() {
             </div>
 
             {/* Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 min-h-[400px]">
+            <ScrollRevealStagger className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 min-h-[400px]">
               <AnimatePresence mode="popLayout">
                 {filtered.map((programme) => {
                   const badgeStyles = getBadgeStyles(programme.category)
@@ -280,8 +277,8 @@ export default function ProgrammesPageClient() {
                       exit={{ opacity: 0, y: -15 }}
                       transition={{ duration: 0.35, ease: 'easeInOut' }}
                     >
-                      <ScrollRevealCard delay={0} className="h-full">
-                        <article className="card overflow-hidden flex flex-col group border border-brand-sand/30 hover:border-brand-amber/30 hover:scale-[1.02] hover:shadow-card-hover transition-all duration-300 h-full w-full bg-white relative">
+                      <ScrollRevealStaggerItem>
+                        <article className="overflow-hidden flex flex-col group border border-brand-sand/40 hover:border-brand-amber/25 hover:scale-[1.01] shadow-elev-1 hover:shadow-elev-2 transition-all duration-300 h-full w-full bg-white relative rounded-2xl">
                           {/* Image with gradient overlay */}
                           <div className="relative h-52 w-full overflow-hidden bg-brand-cream border-b border-brand-sand/20">
                             <Image
@@ -302,7 +299,7 @@ export default function ProgrammesPageClient() {
                           </div>
 
                           {/* Content */}
-                          <div className="p-6 flex flex-col flex-grow">
+                          <div className="p-7 lg:p-8 flex flex-col flex-grow">
                             {/* Location */}
                             <span className="flex items-center gap-1.5 text-xs text-brand-grey font-body mb-3">
                               <MapPin size={14} className="text-brand-blue-light" />
@@ -345,7 +342,7 @@ export default function ProgrammesPageClient() {
                                 </Link>
                                 <Link
                                   href={`/contact#donate`}
-                                  className="btn-amber text-xs font-semibold px-4 py-2 rounded-full hover:scale-102 transition-transform cursor-pointer text-center whitespace-nowrap"
+                                  className="btn-amber text-xs font-semibold px-4 py-2 rounded-full hover:scale-102 transition-transform shadow-sm hover:shadow-elev-1 cursor-pointer text-center whitespace-nowrap"
                                 >
                                   Sponsor Programme
                                 </Link>
@@ -353,12 +350,12 @@ export default function ProgrammesPageClient() {
                             </div>
                           </div>
                         </article>
-                      </ScrollRevealCard>
+                      </ScrollRevealStaggerItem>
                     </motion.div>
                   )
                 })}
               </AnimatePresence>
-            </div>
+            </ScrollRevealStagger>
           </div>
         </div>
       </section>

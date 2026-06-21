@@ -5,7 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Search, Users, Heart, SlidersHorizontal, ChevronDown } from 'lucide-react'
 import CommunityCard from '@/components/ui/CommunityCard'
-import { ScrollRevealTypewriter, ScrollRevealWords, ScrollRevealCard } from '@/components/ui/ScrollAnimations'
+import { ScrollRevealTypewriter, ScrollRevealWords, ScrollRevealCard, ScrollRevealStagger, ScrollRevealStaggerItem } from '@/components/ui/ScrollAnimations'
 import { communityMembers } from '@/data/communityMembers'
 import { cn } from '@/lib/utils'
 
@@ -42,10 +42,7 @@ export default function CommunityPageClient() {
   return (
     <>
       {/* ════════ HEADER ════════ */}
-      <section className="relative bg-[#0F233B] pt-36 pb-20 overflow-hidden" aria-label="Community header">
-        {/* Editorial ambient light glows */}
-        <div className="absolute top-[-20%] right-[-10%] w-[500px] h-[500px] bg-brand-amber/10 rounded-full blur-[100px] pointer-events-none" />
-        <div className="absolute bottom-[-30%] left-[-10%] w-[500px] h-[500px] bg-brand-blue-light/10 rounded-full blur-[100px] pointer-events-none" />
+      <section className="relative section-bg-dark pt-36 pb-20 overflow-hidden" aria-label="Community header">
 
         {/* Thin mesh grid lines for structural design */}
         <div className="absolute inset-0 pointer-events-none opacity-[0.03]" aria-hidden="true">
@@ -91,7 +88,7 @@ export default function CommunityPageClient() {
         </div>
       </section>
 
-      <section className="py-20 md:py-28 bg-[#FBF7F0]" aria-label="Community directory">
+      <section className="py-20 md:py-28 section-bg-soft" aria-label="Community directory">
         <div className="container-wide">
           {/* ════════ FILTER BAR ════════ */}
           <div className="bg-white rounded-[24px] p-5 mb-10 flex flex-wrap items-center gap-4 border border-brand-sand/35 shadow-card relative z-30" aria-label="Filters">
@@ -240,13 +237,7 @@ export default function CommunityPageClient() {
             </div>
           </div>
 
-          {/* PAGE BACKGROUND GLOW */}
-          <div
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 w-[600px] h-[400px] pointer-events-none z-0"
-            style={{
-              background: 'radial-gradient(ellipse, rgba(232,165,61,0.06) 0%, transparent 70%)'
-            }}
-          />
+
 
           {/* SECTION HEADER */}
           <div className="relative text-center mb-16 z-10">
@@ -340,20 +331,13 @@ export default function CommunityPageClient() {
 
           {/* ════════ CARDS GRID ════════ */}
           {filtered.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 relative z-10">
+            <ScrollRevealStagger className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 relative z-10">
               {filtered.map((m, idx) => (
-                <div
-                  key={m.name}
-                  className="animate-fade-in-up flex"
-                  style={{
-                    animationDelay: `${idx * 80}ms`,
-                    animationFillMode: 'both'
-                  }}
-                >
+                <ScrollRevealStaggerItem key={m.name} className="flex">
                   <CommunityCard {...m} className="w-full" />
-                </div>
+                </ScrollRevealStaggerItem>
               ))}
-            </div>
+            </ScrollRevealStagger>
           ) : (
             <div className="text-center py-20">
               <Users size={32} className="text-brand-grey mx-auto mb-3 opacity-40" />

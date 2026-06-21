@@ -43,8 +43,12 @@ const cards = [
 
 export default function DomainMosaic() {
   return (
-    <section className="py-20 md:py-28 lg:py-32 bg-white overflow-hidden" aria-label="Domains We Serve">
-      <div className="container-wide">
+    <section className="py-32 section-bg-cool overflow-hidden relative" aria-label="Domains We Serve">
+      {/* Ambient blob — top-right warm */}
+      <div className="absolute top-[5%] right-[3%] w-[480px] h-[480px] bg-brand-amber/5 rounded-full blur-[130px] pointer-events-none" />
+      {/* Ambient blob — bottom-left cool */}
+      <div className="absolute bottom-[5%] left-[2%] w-[380px] h-[380px] bg-brand-blue-light/5 rounded-full blur-[110px] pointer-events-none" />
+      <div className="container-wide relative z-10">
         
         {/* Top: Text & CTA with reveal animation */}
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-16 px-4">
@@ -110,7 +114,7 @@ export default function DomainMosaic() {
                     isImageRight ? "md:order-2" : "md:order-1"
                   )}
                 >
-                  <div className="relative w-full h-[200px] sm:h-[240px] md:h-full min-h-[200px] rounded-[32px] overflow-hidden group/img shadow-card border border-brand-sand/30 hover:border-brand-amber/30 hover:-translate-y-2 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">
+                  <div className="relative w-full h-[200px] sm:h-[240px] md:h-full min-h-[200px] rounded-2xl overflow-hidden group/img shadow-elev-1 border border-brand-sand/40 hover:border-brand-amber/25 hover:-translate-y-2 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">
                     <Image
                       src={card.img}
                       alt={card.title}
@@ -133,7 +137,7 @@ export default function DomainMosaic() {
                 >
                   <Link
                     href={card.href}
-                    className="bg-[#FBF7F0]/90 backdrop-blur-md rounded-[32px] p-6 md:p-8 lg:p-10 shadow-card hover:shadow-card-hover border border-brand-sand/35 hover:border-brand-amber/30 hover:-translate-y-2 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col justify-between w-full h-full min-h-[250px] sm:min-h-[280px] md:min-h-[330px] group/card"
+                    className="bg-[#FBF7F0]/90 backdrop-blur-md rounded-2xl p-7 lg:p-8 shadow-elev-1 hover:shadow-elev-2 border border-brand-sand/45 hover:border-brand-amber/25 hover:-translate-y-2 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col justify-between w-full h-full min-h-[250px] sm:min-h-[280px] md:min-h-[330px] group/card"
                   >
                     {cardContent}
                   </Link>

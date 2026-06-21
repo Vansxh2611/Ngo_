@@ -52,11 +52,11 @@ export default function Navbar() {
           paddingBottom: scrolled ? '0.75rem' : '1.25rem',
           paddingLeft: scrolled ? '2rem' : '3rem',
           paddingRight: scrolled ? '2rem' : '3rem',
-          background: 'rgba(251, 247, 240, 0.95)',
-          backdropFilter: 'blur(12px)',
+          background: scrolled ? 'rgba(251, 247, 240, 0.90)' : 'rgba(251, 247, 240, 0.95)',
+          backdropFilter: 'blur(8px)',
           border: scrolled ? '1px solid rgba(240, 234, 216, 0.8)' : '1px solid transparent',
           borderBottom: scrolled ? '1px solid rgba(240, 234, 216, 0.8)' : '1px solid rgba(240, 234, 216, 0.5)',
-          boxShadow: scrolled ? '0 10px 30px -10px rgba(26, 58, 92, 0.15)' : 'none',
+          boxShadow: scrolled ? 'var(--shadow-elev-2)' : 'none',
           transition: 'all 500ms cubic-bezier(0.16, 1, 0.3, 1)',
         }}
         aria-label="Main navigation"
@@ -82,8 +82,8 @@ export default function Navbar() {
                     <Link
                       href={link.href}
                       className={cn(
-                        'px-4 py-1.5 rounded-pill text-xs font-body font-medium transition-all duration-200 flex items-center gap-1 text-brand-grey hover:text-brand-blue hover:bg-brand-sand/40',
-                        isActive && 'bg-brand-blue text-white hover:text-white hover:bg-brand-blue/90'
+                        'px-4 py-1.5 rounded-pill text-xs font-body font-medium transition-all duration-200 flex items-center gap-1 text-brand-grey hover:text-brand-blue hover:bg-brand-sand/40 relative',
+                        isActive && 'bg-brand-blue text-white hover:text-white hover:bg-brand-blue/90 shadow-elev-1'
                       )}
                     >
                       {link.label}
@@ -91,7 +91,7 @@ export default function Navbar() {
                     </Link>
                   </div>
                   {/* Dropdown menu */}
-                  <div className="absolute top-[calc(100%-4px)] left-0 min-w-[160px] rounded-2xl overflow-hidden shadow-lg border bg-[#FBF7F0] border-brand-sand/50 backdrop-blur-md text-brand-charcoal opacity-0 pointer-events-none group-hover/nav-item:opacity-100 group-hover/nav-item:pointer-events-auto transition-all duration-300 transform translate-y-2 group-hover/nav-item:translate-y-0 z-50">
+                  <div className="absolute top-[calc(100%-4px)] left-0 min-w-[160px] rounded-2xl overflow-hidden shadow-elev-2 border bg-white/95 border-brand-sand/50 backdrop-blur-md text-brand-charcoal opacity-0 pointer-events-none group-hover/nav-item:opacity-100 group-hover/nav-item:pointer-events-auto transition-all duration-300 transform translate-y-2 group-hover/nav-item:translate-y-0 z-50">
                     <div className="py-2 flex flex-col">
                       {link.subLinks.map((sub) => {
                         const isSubActive = pathname === sub.href
@@ -119,8 +119,8 @@ export default function Navbar() {
                 <Link
                   href={link.href}
                   className={cn(
-                    'px-4 py-1.5 rounded-pill text-xs font-body font-medium transition-all duration-200 block text-brand-grey hover:text-brand-blue hover:bg-brand-sand/40',
-                    isActive && 'bg-brand-blue text-white hover:text-white hover:bg-brand-blue/90'
+                    'px-4 py-1.5 rounded-pill text-xs font-body font-medium transition-all duration-200 block text-brand-grey hover:text-brand-blue hover:bg-brand-sand/40 relative',
+                    isActive && 'bg-brand-blue text-white hover:text-white hover:bg-brand-blue/90 shadow-elev-1'
                   )}
                 >
                   {link.label}
