@@ -212,10 +212,10 @@ export default function IndiaImpactMap({ projects }: IndiaImpactMapProps) {
                     {/* Base Marker Dot */}
                     <span
                       className={`relative h-3 w-3 rounded-full transition-all duration-300 ${isActive
-                          ? 'bg-brand-amber scale-125 ring-4 ring-brand-amber/20'
-                          : isHovered
-                            ? 'bg-brand-amber scale-110'
-                            : 'bg-brand-blue ring-2 ring-white'
+                        ? 'bg-brand-amber scale-125 ring-4 ring-brand-amber/20'
+                        : isHovered
+                          ? 'bg-brand-amber scale-110'
+                          : 'bg-brand-blue ring-2 ring-white'
                         }`}
                     />
 

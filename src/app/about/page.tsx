@@ -21,6 +21,7 @@ const values = [
     color: 'bg-blue-50 text-brand-blue',
   },
   {
+    
     icon: Heart,
     title: 'Compassion',
     desc: 'Every program begins with listening. We build with communities, not for them, ensuring dignity at every step.',

@@ -1,12 +1,18 @@
-
 'use client'
 
+import { useState } from 'react'
 import Image from 'next/image'
-import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
-import { cn } from '@/lib/utils'
-import { ScrollRevealTypewriter, ScrollRevealWords, ScrollRevealStagger, ScrollRevealStaggerItem } from '@/components/ui/ScrollAnimations'
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
+import { 
+  ScrollRevealTypewriter, 
+  ScrollRevealWords, 
+  ScrollRevealCard,
+  ScrollRevealStagger, 
+  ScrollRevealStaggerItem 
+} from '@/components/ui/ScrollAnimations'
 
+// Hardcoded cards data representing our core trust pillars
 const cards = [
   {
     title: 'Congregational Communities',
@@ -36,14 +42,25 @@ const cards = [
 ]
 
 export default function WhoWeAre() {
-  return (
-    <section className="py-32 section-bg-soft overflow-hidden relative" aria-label="Who We Are">
-      <div className="container-wide relative z-10">
+  const [activeCardIndex, setActiveCardIndex] = useState(0)
+  const shouldReduceMotion = useReducedMotion()
 
-        {/* Intro text with viewport-triggered entrance animation */}
-        <div className="max-w-[720px] mx-auto text-center mb-16 px-4">
+  return (
+    <section
+      id="who-we-are"
+      aria-labelledby="who-we-are-heading"
+      // Warm tint page background that contrasts nicely with pure white cards
+      className="py-24 md:py-32 bg-[#FFF7EC] relative overflow-hidden"
+    >
+      {/* Soft warm light ambient blob for visual depth */}
+      <div className="absolute top-[10%] left-[5%] w-[400px] h-[400px] bg-brand-amber/5 rounded-full blur-[120px] pointer-events-none" />
+      
+      <div className="container-wide relative z-10 px-4 sm:px-6 lg:px-8 max-w-[1200px] mx-auto">
+        
+        {/* Intro text header */}
+        <div className="max-w-[720px] mx-auto text-center mb-16">
           <p className="section-label mb-3">Who We Are</p>
-          <h2 className="section-title mb-6 leading-tight italic">
+          <h2 id="who-we-are-heading" className="section-title mb-6 leading-tight italic">
             <ScrollRevealTypewriter text="Building Strong Communities" />
             <br />
             <ScrollRevealTypewriter text="through" delay={0.3} />
@@ -60,86 +77,135 @@ export default function WhoWeAre() {
           </p>
         </div>
 
-        {/* Alternating Row Grid (Wix-style layout) with Motion Level 3 Stagger */}
-        <ScrollRevealStagger className="space-y-12 md:space-y-16 mt-16 px-4 lg:px-8 max-w-[1100px] mx-auto">
-          {cards.map((card, idx) => {
-            const isImageRight = idx % 2 !== 0
-            const cardContent = (
-              <>
-                <div>
-                  <div className="mb-5 flex items-center">
-                    <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white/85 border border-brand-sand/60 text-[10px] font-bold tracking-widest text-brand-blue-light uppercase shadow-sm">
-                      <span className="w-1.5 h-1.5 rounded-full bg-brand-amber animate-pulse-dot" />
-                      {card.tag}
-                    </span>
-                  </div>
-                  <h3 className="font-heading text-2xl sm:text-3xl font-bold text-brand-blue mb-4 leading-tight group-hover/card:text-brand-amber-dark transition-colors duration-500">
-                    {card.title}
-                  </h3>
-                  <p className="font-body text-sm sm:text-base text-brand-grey/90 leading-relaxed mb-6">
-                    {card.desc}
-                  </p>
-                </div>
-
-                {card.href ? (
-                  <div>
-                    <span className="inline-flex items-center gap-1.5 font-body text-xs sm:text-sm font-semibold text-brand-blue group-hover/card:text-brand-amber-dark transition-colors cursor-pointer">
-                      View Directory
-                      <ArrowRight size={14} className="group-hover/card:translate-x-1 transition-transform duration-300" />
-                    </span>
-                  </div>
-                ) : null}
-              </>
-            )
-
-            return (
-              <ScrollRevealStaggerItem key={card.title}>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-16 items-stretch">
-                  {/* Image Tile */}
-                  <div
-                    className={cn(
-                      "w-full order-1 flex flex-col h-full",
-                      isImageRight ? "md:order-2" : "md:order-1"
-                    )}
-                  >
-                    <div className="relative w-full h-[200px] sm:h-[240px] md:h-full min-h-[200px] rounded-2xl overflow-hidden group/img shadow-elev-1 border border-brand-sand/40 hover:border-brand-amber/25 hover:-translate-y-2 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">
-                      <Image
-                        src={card.img}
-                        alt={card.title}
-                        fill
-                        className="object-cover transition-transform duration-700 group-hover/img:scale-105"
-                        sizes="(max-width: 768px) 100vw, 50vw"
-                      />
-                      {/* Modern subtle overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-brand-blue/15 to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity duration-500 pointer-events-none" />
-                    </div>
-                  </div>
-
-                  {/* Text Tile */}
-                  <div
-                    className={cn(
-                      "w-full order-2 flex flex-col h-full",
-                      isImageRight ? "md:order-1" : "md:order-2"
-                    )}
-                  >
-                    {card.href ? (
-                      <Link
-                        href={card.href}
-                        className="bg-[#FBF7F0]/90 backdrop-blur-md rounded-2xl p-7 lg:p-8 shadow-elev-1 hover:shadow-elev-2 border border-brand-sand/45 hover:border-brand-amber/25 hover:-translate-y-2 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col justify-between w-full h-full min-h-[250px] sm:min-h-[280px] md:min-h-[330px] group/card"
+        <div className="mt-10 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:items-stretch">
+          
+          {/* Left Column: Image/Media Display */}
+          <div className="lg:col-span-5 w-full order-1 lg:flex lg:flex-col">
+            <ScrollRevealCard delay={0.1} className="lg:flex-1 flex flex-col h-full lg:h-auto">
+              <div className="flex flex-col lg:flex-1 lg:pr-4 h-full lg:h-auto">
+                {/* Stretches to the exact end-to-end height of the card stack */}
+                <figure 
+                  className="relative w-full overflow-hidden rounded-3xl bg-transparent shadow-[0_18px_60px_rgba(15,23,42,0.16)] h-80 sm:h-[400px] md:h-[480px] lg:h-auto lg:flex-1 transform-gpu"
+                  style={{ 
+                    maskImage: 'radial-gradient(white, black)', 
+                    WebkitMaskImage: '-webkit-radial-gradient(white, black)' 
+                  }}
+                >
+                  {cards.map((card, idx) => {
+                    const isActive = activeCardIndex === idx
+                    return (
+                      <div
+                        key={card.title}
+                        style={{ zIndex: isActive ? 10 : 0 }}
+                        className={`absolute inset-0 w-full h-full transition duration-700 ease-out transform-gpu
+                                   ${isActive ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}`}
                       >
-                        {cardContent}
-                      </Link>
-                    ) : (
-                      <div className="bg-[#FBF7F0]/90 backdrop-blur-md rounded-2xl p-7 lg:p-8 shadow-elev-1 hover:shadow-elev-2 border border-brand-sand/45 hover:border-brand-amber/25 hover:-translate-y-2 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col justify-between w-full h-full min-h-[250px] sm:min-h-[280px] md:min-h-[330px] group/card">
-                        {cardContent}
+                        <Image
+                          src={card.img}
+                          alt={`Visual representation of ${card.title}`}
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 1024px) 100vw, 40vw"
+                          priority={idx === 0}
+                        />
+                      </div>
+                    )
+                  })}
+                </figure>
+              </div>
+            </ScrollRevealCard>
+          </div>
+
+          {/* Right Column: Stacked Text Cards */}
+          <div className="lg:col-span-7 space-y-6 w-full order-2">
+            <ScrollRevealStagger className="space-y-6">
+              {cards.map((card, idx) => {
+                const isInteractive = !!card.href
+                const isActive = activeCardIndex === idx
+                
+                // Assigned distinct soft-bg/accent-text themes to make cards readable and vibrant
+                const themes = [
+                  { bg: 'bg-sky-50', text: 'text-sky-800', border: 'border-sky-100' },
+                  { bg: 'bg-emerald-50', text: 'text-emerald-800', border: 'border-emerald-100' },
+                  { bg: 'bg-amber-50', text: 'text-amber-800', border: 'border-amber-100' },
+                  { bg: 'bg-indigo-50', text: 'text-indigo-800', border: 'border-indigo-100' },
+                ]
+                const theme = themes[idx % themes.length]
+
+                const cardContent = (
+                  <>
+                    <div className="flex flex-col items-start gap-4">
+                      {/* Label chip */}
+                      <span className={`inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-semibold tracking-wide uppercase border ${theme.bg} ${theme.text} ${theme.border}`}>
+                        <span className="w-1.5 h-1.5 rounded-full bg-brand-amber animate-pulse" />
+                        {card.tag}
+                      </span>
+                      
+                      {/* Card Title (high-contrast slate-900) */}
+                      <h3 className="text-xl md:text-2xl font-heading font-bold text-slate-900">
+                        {card.title}
+                      </h3>
+                      
+                      {/* Card Description (high-contrast slate-700) */}
+                      <p className="text-slate-700 text-sm md:text-base leading-relaxed max-w-xl">
+                        {card.desc}
+                      </p>
+                    </div>
+
+                    {/* Optional CTA Link */}
+                    {isInteractive && (
+                      <div className="mt-4">
+                        <span className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-brand-blue-light group-hover:text-brand-blue transition-colors">
+                          View Directory
+                          <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform duration-300" />
+                        </span>
                       </div>
                     )}
-                  </div>
-                </div>
-              </ScrollRevealStaggerItem>
-            )
-          })}
-        </ScrollRevealStagger>
+                  </>
+                )
+
+                const hoverAnim = shouldReduceMotion ? {} : { scale: 1.02 }
+
+                if (isInteractive) {
+                  return (
+                    <ScrollRevealStaggerItem key={card.title}>
+                      <motion.a
+                        href={card.href}
+                        onMouseEnter={() => setActiveCardIndex(idx)}
+                        onFocus={() => setActiveCardIndex(idx)}
+                        whileHover={hoverAnim}
+                        className={`relative block rounded-3xl bg-white border p-8 md:p-10 transition duration-300 transform-gpu cursor-pointer select-none outline-none group
+                                  shadow-[0_18px_60px_rgba(15,23,42,0.06)] hover:shadow-[0_22px_80px_rgba(15,23,42,0.11)]
+                                  ${isActive ? 'border-brand-amber/60' : 'border-brand-sand/60'}
+                                  focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[#FFF7EC] focus-visible:ring-brand-amber/40`}
+                      >
+                        {cardContent}
+                      </motion.a>
+                    </ScrollRevealStaggerItem>
+                  )
+                }
+
+                return (
+                  <ScrollRevealStaggerItem key={card.title}>
+                    <motion.article
+                      onMouseEnter={() => setActiveCardIndex(idx)}
+                      onFocus={() => setActiveCardIndex(idx)}
+                      whileHover={hoverAnim}
+                      className={`relative rounded-3xl bg-white border p-8 md:p-10 transition duration-300 transform-gpu select-none outline-none
+                                shadow-[0_18px_60px_rgba(15,23,42,0.06)] hover:shadow-[0_22px_80px_rgba(15,23,42,0.11)]
+                                ${isActive ? 'border-brand-amber/60' : 'border-brand-sand/60'}
+                                focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-[#FFF7EC] focus-within:ring-brand-amber/40`}
+                      tabIndex={0}
+                    >
+                      {cardContent}
+                    </motion.article>
+                  </ScrollRevealStaggerItem>
+                )
+              })}
+            </ScrollRevealStagger>
+          </div>
+          
+        </div>
       </div>
     </section>
   )

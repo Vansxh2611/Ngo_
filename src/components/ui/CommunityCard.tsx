@@ -114,8 +114,8 @@ export default function CommunityCard({
             {/* ROLE DOT */}
             <div
               className={`absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full ring-2 ring-white ${role === 'DONOR'
-                  ? 'bg-gradient-to-br from-[#E8A53D] to-[#F4C06A]'
-                  : 'bg-gradient-to-br from-[#0A1A3A] to-[#1E3A6E]'
+                ? 'bg-gradient-to-br from-[#E8A53D] to-[#F4C06A]'
+                : 'bg-gradient-to-br from-[#0A1A3A] to-[#1E3A6E]'
                 }`}
             />
           </div>
@@ -318,5 +318,9 @@ export default function CommunityCard({
         </div>
       </div>
     </PremiumCard>
+  )
+}
+      </motion.article >
+    </Link >
   )
 }

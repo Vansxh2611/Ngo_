@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import HeroSection from '@/components/sections/HeroSection'
 import WhoWeAre from '@/components/sections/WhoWeAre'
 import ImpactJourney from '@/components/sections/ImpactJourney'
-import DomainMosaic from '@/components/sections/DomainMosaic'
+import DomainMosaicSection from '@/components/home/DomainMosaicSection'
 import CTASection from '@/components/sections/CTASection'
 import StatCounter from '@/components/ui/StatCounter'
 import BlogCard from '@/components/ui/BlogCard'
@@ -73,7 +73,7 @@ export default function HomePage() {
       <ImpactJourney />
 
       {/* 3. DOMAIN MOSAIC */}
-      <DomainMosaic />
+      <DomainMosaicSection />
 
       {/* 4. IMPACT STATS */}
       <section className="py-20 md:py-28 lg:py-32 section-bg-soft border-t border-brand-sand/50" aria-label="Impact Stats">
