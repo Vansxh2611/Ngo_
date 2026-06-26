@@ -320,7 +320,4 @@ export default function CommunityCard({
     </PremiumCard>
   )
 }
-      </motion.article >
-    </Link >
-  )
-}
+
